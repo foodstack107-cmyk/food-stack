@@ -58,7 +58,7 @@ const Navbar = () => {
               <Link href='/' className='flex items-center gap-2'>
                 <Image
                   src='/images/logo.svg'
-                  alt='Shiv Shakti Food Delivery'
+                  alt='Food Stack Food Delivery'
                   height={80}
                   width={80}
                   className={`object-contain transition-all duration-300 ${

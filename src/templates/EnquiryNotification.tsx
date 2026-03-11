@@ -18,7 +18,7 @@ export const EnquiryNotificationTemplate = ({
     <html>
       <head>
         <meta charset="utf-8">
-        <title>New Enquiry Received - Shiv Shakti Food Delivery</title>
+        <title>New Enquiry Received - Food Stack Food Delivery</title>
       </head>
       <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px 10px 0 0;">
@@ -48,7 +48,7 @@ export const EnquiryNotificationTemplate = ({
         </div>
         
         <div style="text-align: center; margin-top: 20px; color: #666; font-size: 12px;">
-          <p>This is an automated notification from Shiv Shakti Food Delivery enquiry system.</p>
+          <p>This is an automated notification from Food Stack Food Delivery enquiry system.</p>
         </div>
       </body>
     </html>

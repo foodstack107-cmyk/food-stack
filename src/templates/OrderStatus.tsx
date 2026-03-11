@@ -48,7 +48,7 @@ export const generateOrderStatusTemplate = ({
                 <tr>
                   <td style="padding: 40px 40px 30px; background: linear-gradient(135deg, #1A2744 0%, #2D4A7A 100%); border-radius: 8px 8px 0 0;">
                     <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold; text-align: center;">
-                      Shiv Shakti Food Delivery <br> Order Status Update
+                      Food Stack Food Delivery <br> Order Status Update
                     </h1>
                   </td>
                 </tr>
@@ -147,7 +147,7 @@ export const generateOrderStatusTemplate = ({
                 <tr>
                   <td style="padding: 30px 40px; background-color: #f8f9fa; border-radius: 0 0 8px 8px; text-align: center;">
                     <p style="margin: 0; color: #666666; font-size: 14px;">
-                      Thank you for choosing Shiv Shakti Food Delivery! This is an automated order status update.
+                      Thank you for choosing Food Stack Food Delivery! This is an automated order status update.
                     </p>
                   </td>
                 </tr>

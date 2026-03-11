@@ -10,18 +10,18 @@ interface BlogDetailProps {
   resourceType: 'latest-news' | 'food-tips';
 }
 
+interface Blog {
+  _id: string;
+  title: string;
+  blogType: string;
+  image: string;
+  description: string;
+}
+
 const BlogDetail = ({ resourceType }: BlogDetailProps) => {
   const { id } = useParams();
   const router = useRouter();
   const { data: blogs = [] } = useGetAllBlogs();
-
-  interface Blog {
-    _id: string;
-    title: string;
-    blogType: string;
-    image: string;
-    description: string;
-  }
 
   const blog = blogs.find((b: Blog) => b._id === id);
 
@@ -65,9 +65,9 @@ const BlogDetail = ({ resourceType }: BlogDetailProps) => {
   }
 
   // Get related blogs (same type, excluding current)
-  const relatedBlogs: Blog[] = blogs
-    .filter((b: Blog) => b.blogType === blog.blogType && b._id !== id)
-    .slice(0, 3);
+  const relatedBlogs: Blog[] = blogs.filter((b: Blog) => {
+    return b.blogType === blog.blogType && b._id !== id;
+  }).slice(0, 3);
 
   return (
     <div className='min-h-screen bg-[#0B1426] text-white relative overflow-hidden'>

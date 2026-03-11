@@ -64,7 +64,7 @@ export default function Login() {
           </div>
 
           <h1 className='text-4xl xl:text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600 mb-4'>
-            Shiv Shakti
+            Food Stack
           </h1>
           <h2 className='text-2xl xl:text-3xl font-semibold text-orange-300 mb-6'>
             Food Delivery
@@ -88,7 +88,7 @@ export default function Login() {
               <Utensils className='w-10 h-10 text-white' />
             </div>
             <h1 className='text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-orange-400 to-orange-600'>
-              Shiv Shakti Food Delivery
+              Food Stack Food Delivery
             </h1>
           </div>
 

@@ -76,7 +76,7 @@ export const generateBlogEmailTemplate = ({
           <!-- Header -->
           <tr>
             <td class="header">
-              <h1>Shiv Shakti Food Delivery</h1>
+              <h1>Food Stack Food Delivery</h1>
               <p>New Blog Post</p>
             </td>
           </tr>
@@ -97,7 +97,7 @@ export const generateBlogEmailTemplate = ({
           <!-- Footer -->
           <tr>
             <td class="footer">
-              <p>© 2025 Shiv Shakti Food Delivery. All rights reserved.</p>
+              <p>© 2025 Food Stack Food Delivery. All rights reserved.</p>
               <p>Don't want these emails? <a href="${unsubscribeLink}">Unsubscribe</a></p>
             </td>
           </tr>

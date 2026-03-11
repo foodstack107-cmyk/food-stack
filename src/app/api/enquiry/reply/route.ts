@@ -16,23 +16,22 @@ export async function POST(request: NextRequest) {
     const subject = `Re: Your enquiry - ${name}`;
     const template = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-        <h2 style="color: #1A2744;">Shiv Shakti Food Delivery</h2>
+        <h2 style="color: #1A2744;">Food Stack Food Delivery</h2>
         <p>Dear ${name},</p>
         <p>Thank you for your enquiry. Here's our response:</p>
         <div style="background-color: #f9f9f9; padding: 15px; border-left: 4px solid #1A2744; margin: 20px 0;">
           ${reply.replace(/\n/g, '<br>')}
         </div>
-        ${
-          originalMessage
-            ? `
+        ${originalMessage
+        ? `
         <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
           <p style="color: #666; font-size: 14px;"><strong>Your original message:</strong></p>
           <p style="color: #666; font-size: 14px;">${originalMessage}</p>
         </div>
         `
-            : ''
-        }
-        <p>Best regards,<br>Shiv Shakti Team</p>
+        : ''
+      }
+        <p>Best regards,<br>Food Stack Team</p>
       </div>
     `;
 

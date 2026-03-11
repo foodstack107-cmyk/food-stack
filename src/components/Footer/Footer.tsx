@@ -202,7 +202,7 @@ const Footer = () => {
                   <Flame size={18} className='text-white' />
                 </div>
                 <span className='text-lg font-extrabold text-white tracking-tight'>
-                  Shiv Shakti
+                  Food Stack
                 </span>
               </div>
               <p className='text-gray-400 text-sm leading-relaxed'>
@@ -326,7 +326,7 @@ const Footer = () => {
           className='mt-12 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3'
         >
           <p className='text-gray-500 text-xs text-center sm:text-left'>
-            © {new Date().getFullYear()} Shiv Shakti Food Delivery. All rights
+            © {new Date().getFullYear()} Food Stack Food Delivery. All rights
             reserved.
           </p>
           <p className='text-gray-600 text-xs'>

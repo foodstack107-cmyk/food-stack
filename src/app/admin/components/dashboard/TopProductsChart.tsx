@@ -57,7 +57,7 @@ const TopProductsChart = () => {
       case 'ubereats':
         return 'UberEats';
       case 'shivshakti':
-        return 'Shiv Shakti';
+        return 'Food Stack';
       default:
         return 'All Platforms';
     }
@@ -119,7 +119,7 @@ const TopProductsChart = () => {
                     : 'text-gray-500 hover:bg-gray-100'
                 }`}
               >
-                Shiv Shakti
+                Food Stack
               </button>
             </div>
           </div>

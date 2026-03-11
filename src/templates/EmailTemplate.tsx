@@ -28,7 +28,7 @@ export const generateEmailTemplate = ({
                 <tr>
                   <td style="padding: 40px 40px 30px; background: linear-gradient(135deg, #1A2744 0%, #2D4A7A 100%); border-radius: 8px 8px 0 0;">
                     <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: bold; text-align: center;">
-                     Shiv Shakti Food Delivery <br> New Enquiry Received
+                     Food Stack Food Delivery <br> New Enquiry Received
                     </h1>
                   </td>
                 </tr>

@@ -29,7 +29,7 @@ export const createEnquiry = async (enquiryData: EnquiryData) => {
 
     await sendEmail(
       [notificationEmail],
-      `New Enquiry from ${enquiryData.name} - Shiv Shakti Food Delivery`,
+      `New Enquiry from ${enquiryData.name} - Food Stack Food Delivery`,
       emailTemplate,
       [],
     );
