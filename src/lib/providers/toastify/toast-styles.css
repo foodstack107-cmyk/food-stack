@@ -1,0 +1,98 @@
+/* Custom styles for React Toastify to integrate with our design system */
+
+:root {
+  --toastify-color-light: hsl(var(--card));
+  --toastify-color-dark: hsl(var(--card));
+  --toastify-color-info: hsl(var(--chart-2));
+  --toastify-color-success: #22c55e;
+  --toastify-color-warning: hsl(var(--chart-5));
+  --toastify-color-error: hsl(var(--destructive));
+  --toastify-color-transparent: rgba(255, 255, 255, 0.7);
+
+  --toastify-icon-color-info: var(--toastify-color-info);
+  --toastify-icon-color-success: var(--toastify-color-success);
+  --toastify-icon-color-warning: var(--toastify-color-warning);
+  --toastify-icon-color-error: var(--toastify-color-error);
+
+  --toastify-text-color-light: hsl(var(--card-foreground));
+  --toastify-text-color-dark: hsl(var(--card-foreground));
+
+  --toastify-font-family: inherit;
+}
+
+.Toastify__toast {
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 12px 16px;
+  margin-bottom: 12px;
+}
+
+.Toastify__toast-body {
+  font-family: var(--toastify-font-family);
+  padding: 4px 8px;
+}
+
+.Toastify__close-button {
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.Toastify__close-button:hover {
+  opacity: 1;
+}
+
+.Toastify__progress-bar {
+  height: 3px;
+}
+
+/* Custom toast background colors */
+.Toastify__toast--success {
+  background-color: white !important;
+  border: 1px solid #22c55e;
+  color: black !important;
+}
+
+.Toastify__toast--success .Toastify__toast-icon {
+  color: #22c55e !important;
+}
+
+.Toastify__toast--error {
+  background-color: hsl(var(--destructive) / 0.2) !important;
+  border: 1px solid hsl(var(--destructive));
+}
+
+.Toastify__toast--warning {
+  background-color: hsl(var(--chart-5) / 0.2) !important;
+  border: 1px solid hsl(var(--chart-5));
+}
+
+.Toastify__toast--info {
+  background-color: hsl(var(--chart-2) / 0.2) !important;
+  border: 1px solid hsl(var(--chart-2));
+}
+
+/* Dark mode adjustments */
+.dark .Toastify__toast {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    width: 100%;
+    padding: 0;
+    left: 0;
+    margin: 0;
+  }
+
+  .Toastify__toast-container--top-left,
+  .Toastify__toast-container--top-center,
+  .Toastify__toast-container--top-right {
+    top: 0;
+  }
+
+  .Toastify__toast {
+    margin-bottom: 8px;
+    border-radius: 0;
+  }
+}
