@@ -41,9 +41,6 @@ export const authOptions: AuthOptions = {
         const isValid = await compare(credentials.password, user.password);
         if (!isValid) throw new Error('Invalid password');
 
-        if (user.role !== 'Admin') {
-          throw new Error('Access denied'); // Only Admins allowed
-        }
         return {
           id: user._id.toString(),
           name: user.name,

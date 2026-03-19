@@ -4,12 +4,12 @@ import { motion } from 'framer-motion';
 import { Clock, Map, MapPin, Phone } from 'lucide-react';
 
 const deliveryZones = [
-  { name: 'Nundah', postcode: '4012' },
-  { name: 'Northgate', postcode: '4013' },
-  { name: 'Wavell Heights', postcode: '4012' },
-  { name: 'Virginia', postcode: '4014' },
-  { name: 'Banyo', postcode: '4014' },
-  { name: 'Hendra', postcode: '4011' },
+  { name: 'Jandiala', postcode: '4012' },
+  { name: 'Jalandhar', postcode: '4013' },
+  { name: 'Ludhiana', postcode: '4012' },
+  { name: 'Beas', postcode: '4014' },
+  { name: 'Rayya', postcode: '4014' },
+  { name: 'Amritsar', postcode: '4011' },
 ];
 
 const operatingHours = [

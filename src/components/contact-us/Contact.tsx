@@ -99,21 +99,21 @@ const Contact: React.FC = () => {
                     <Phone className='w-6 h-6 sm:w-7 sm:h-7 text-[#E8552D]' />
                   ),
                   label: 'Phone',
-                  value: '+61 470 355 929',
+                  value: '+91 000 000 0000',
                 },
                 {
                   icon: (
                     <Mail className='w-6 h-6 sm:w-7 sm:h-7 text-[#E8552D]' />
                   ),
                   label: 'Email',
-                  value: 'shiv0803shakti@gmail.com',
+                  value: 'example.com',
                 },
                 {
                   icon: (
                     <MapPin className='w-6 h-6 sm:w-7 sm:h-7 text-[#E8552D]' />
                   ),
                   label: 'Location',
-                  value: '13, Nundah Street, Nundah, QLD 4012',
+                  value: 'VPO Tangra',
                 },
               ].map((item, i) => (
                 <motion.div

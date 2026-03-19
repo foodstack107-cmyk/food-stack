@@ -1,4 +1,5 @@
 'use client';
+import { SessionProvider } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -24,9 +25,9 @@ export default function ClientLayout({
   }, [pathname]);
 
   return (
-    <>
+    <SessionProvider>
       <Banner />
       {children}
-    </>
+    </SessionProvider>
   );
 }

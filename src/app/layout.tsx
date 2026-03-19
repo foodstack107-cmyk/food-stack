@@ -7,6 +7,7 @@ import '@/styles/colors.css';
 //  import the client layout
 import { ReactQueryProvider } from '@/lib/providers/ReactQueryProvider';
 import { ToastProvider } from '@/lib/providers/toastify';
+import ClientLayout from '@/lib/providers/ClientLayout';
 
 import { siteConfig } from '@/constant/config';
 
@@ -50,7 +51,9 @@ export default function RootLayout({
     <html lang='en'>
       <body>
         <ReactQueryProvider>
-          <ToastProvider>{children}</ToastProvider>
+          <ToastProvider>
+            <ClientLayout>{children}</ClientLayout>
+          </ToastProvider>
         </ReactQueryProvider>
       </body>
     </html>

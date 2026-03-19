@@ -1,16 +1,16 @@
 'use client';
 import { motion } from 'framer-motion';
 import {
+  ChevronRight,
   Clock,
   Facebook,
+  Flame,
   Instagram,
   Mail,
   MapPin,
   Phone,
-  Youtube,
-  ChevronRight,
   Send,
-  Flame,
+  Youtube,
 } from 'lucide-react';
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -294,15 +294,15 @@ const Footer = () => {
                       className='text-[#E8552D] shrink-0 mt-0.5'
                     />
                   ),
-                  text: '13, Nundah Street, Nundah, QLD 4012',
+                  text: 'VPO Tangra',
                 },
                 {
                   icon: <Phone size={15} className='text-[#E8552D] shrink-0' />,
-                  text: '+61 470 355 929',
+                  text: '+91 000 000 0000',
                 },
                 {
                   icon: <Mail size={15} className='text-[#E8552D] shrink-0' />,
-                  text: 'shiv0803shakti@gmail.com',
+                  text: 'example.com',
                 },
                 {
                   icon: <Clock size={15} className='text-[#E8552D] shrink-0' />,
