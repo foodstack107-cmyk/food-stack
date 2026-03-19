@@ -11,6 +11,18 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
+  experimental: {
+    optimizePackageImports: [
+      'react-icons',
+      'lucide-react',
+      'recharts',
+      'framer-motion',
+      '@tanstack/react-query',
+    ],
+    // Use Turbopack-compatible SWC for faster dev compilation
+    webpackBuildWorker: true,
+  },
+
   // Uncoment to add domain whitelist
   images: {
     remotePatterns: [
@@ -32,7 +44,7 @@ const nextConfig = {
       },
       {
         protocol: 'https',
-        hostname: 'faow2kylu9rzbuzb.public.blob.vercel-storage.com',
+        hostname: '*.public.blob.vercel-storage.com',
       },
     ],
   },

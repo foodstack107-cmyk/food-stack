@@ -36,14 +36,6 @@ export async function POST(req: Request) {
       );
     }
 
-    // 🔐 Check if user is an Admin
-    if (user.role !== 'Admin') {
-      return NextResponse.json(
-        { message: 'Access denied. Admins only.' },
-        { status: 403 },
-      );
-    }
-
     const token = await signJwt({ email: user.email, role: user.role });
 
     return NextResponse.json({ token }, { status: 200 });

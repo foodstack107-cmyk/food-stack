@@ -23,22 +23,27 @@ export default function Login() {
         redirect: false,
         email,
         password,
+        mode,
       });
 
       if (result?.error) {
         toast.error('Login Failed', {
-          description: 'Invalid credentials. Please check your email and password.',
+          description:
+            'Invalid credentials. Please check your email and password.',
         });
       } else {
         toast.success('Login Successful', {
-          description: mode === 'admin' ? 'Redirecting to dashboard...' : 'Welcome back!',
+          description:
+            mode === 'admin' ? 'Redirecting to dashboard...' : 'Welcome back!',
         });
         setTimeout(() => {
           window.location.href = mode === 'admin' ? '/admin/dashboard' : '/';
         }, 1000);
       }
     } catch {
-      toast.error('Something went wrong', { description: 'Please try again later.' });
+      toast.error('Something went wrong', {
+        description: 'Please try again later.',
+      });
     } finally {
       setIsLoading(false);
     }
@@ -57,8 +62,14 @@ export default function Login() {
         </div>
         <div className='relative z-10 text-center'>
           <div className='mb-8 relative'>
-            <div className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(232,85,45,0.3)] transition-all duration-500 ${isAdmin ? 'bg-gradient-to-br from-[#2D4A7A] to-[#1A2744] border-2 border-orange-400/40' : 'bg-gradient-to-br from-orange-500 to-orange-600'}`}>
-              {isAdmin ? <Shield className='w-16 h-16 text-orange-400' /> : <Utensils className='w-16 h-16 text-white' />}
+            <div
+              className={`w-32 h-32 mx-auto rounded-full flex items-center justify-center shadow-[0_0_30px_rgba(232,85,45,0.3)] transition-all duration-500 ${isAdmin ? 'bg-gradient-to-br from-[#2D4A7A] to-[#1A2744] border-2 border-orange-400/40' : 'bg-gradient-to-br from-orange-500 to-orange-600'}`}
+            >
+              {isAdmin ? (
+                <Shield className='w-16 h-16 text-orange-400' />
+              ) : (
+                <Utensils className='w-16 h-16 text-white' />
+              )}
             </div>
             <div className='absolute -inset-4 bg-gradient-to-r from-orange-400/20 to-transparent rounded-full blur-xl' />
           </div>
@@ -117,20 +128,30 @@ export default function Login() {
           </div>
 
           {/* Form Card */}
-          <div className={`bg-black/30 backdrop-blur-sm rounded-2xl border p-8 shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-300 ${
-            isAdmin
-              ? 'border-orange-400/30 hover:border-orange-400/50 hover:shadow-[0_0_40px_rgba(45,74,122,0.3)]'
-              : 'border-orange-400/20 hover:border-orange-400/30 hover:shadow-[0_0_40px_rgba(232,85,45,0.1)]'
-          }`}>
+          <div
+            className={`bg-black/30 backdrop-blur-sm rounded-2xl border p-8 shadow-[0_0_30px_rgba(0,0,0,0.5)] transition-all duration-300 ${
+              isAdmin
+                ? 'border-orange-400/30 hover:border-orange-400/50 hover:shadow-[0_0_40px_rgba(45,74,122,0.3)]'
+                : 'border-orange-400/20 hover:border-orange-400/30 hover:shadow-[0_0_40px_rgba(232,85,45,0.1)]'
+            }`}
+          >
             <div className='text-center mb-8'>
-              <div className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-4 ${isAdmin ? 'bg-[#2D4A7A]/50 border border-orange-400/30' : 'bg-orange-500/20'}`}>
-                {isAdmin ? <Shield className='w-6 h-6 text-orange-400' /> : <User className='w-6 h-6 text-orange-400' />}
+              <div
+                className={`inline-flex items-center justify-center w-12 h-12 rounded-full mb-4 ${isAdmin ? 'bg-[#2D4A7A]/50 border border-orange-400/30' : 'bg-orange-500/20'}`}
+              >
+                {isAdmin ? (
+                  <Shield className='w-6 h-6 text-orange-400' />
+                ) : (
+                  <User className='w-6 h-6 text-orange-400' />
+                )}
               </div>
               <h3 className='text-2xl font-bold text-white mb-1'>
                 {isAdmin ? 'Admin Sign In' : 'Welcome Back'}
               </h3>
               <p className='text-gray-400 text-sm'>
-                {isAdmin ? 'Access the admin dashboard' : 'Sign in to your account'}
+                {isAdmin
+                  ? 'Access the admin dashboard'
+                  : 'Sign in to your account'}
               </p>
             </div>
 
@@ -186,8 +207,10 @@ export default function Login() {
                     <div className='w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2' />
                     Signing in...
                   </div>
+                ) : isAdmin ? (
+                  'Sign In as Admin'
                 ) : (
-                  isAdmin ? 'Sign In as Admin' : 'Sign In'
+                  'Sign In'
                 )}
               </button>
             </form>
@@ -195,7 +218,10 @@ export default function Login() {
             {!isAdmin && (
               <p className='text-center text-gray-400 text-sm mt-6'>
                 Don&apos;t have an account?{' '}
-                <Link href='/signup' className='text-orange-400 hover:text-orange-300 font-medium transition-colors'>
+                <Link
+                  href='/signup'
+                  className='text-orange-400 hover:text-orange-300 font-medium transition-colors'
+                >
                   Sign up
                 </Link>
               </p>

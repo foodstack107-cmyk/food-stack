@@ -18,6 +18,7 @@ interface CheckoutViewProps {
   handleSendOtp: () => Promise<void>;
   handleVerifyOtp: () => void;
   handleSubmitOrder: (e: React.FormEvent) => void;
+  isLoggedIn: boolean;
 }
 
 const CheckoutView: React.FC<CheckoutViewProps> = ({
@@ -38,6 +39,7 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
   handleSendOtp,
   handleVerifyOtp,
   handleSubmitOrder,
+  isLoggedIn,
 }) => {
   const [emailError, setEmailError] = useState<string>('');
   const [canResendOtp, setCanResendOtp] = useState<boolean>(true);
@@ -140,56 +142,71 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
       <h3 className='text-lg sm:text-xl font-semibold mb-4 text-[#E8552D]'>
         Pickup Details
       </h3>
-      <div>
-        <label className='block text-sm font-medium mb-1 text-white'>
-          Name
-        </label>
-        <input
-          type='text'
-          required
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className='w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors text-white'
-        />
-      </div>
-      <div>
-        <label className='block text-sm font-medium text-white mb-1'>
-          Phone Number
-        </label>
-        <input
-          type='tel'
-          required
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className='w-full px-4 py-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors'
-        />
-      </div>
-      <div>
-        <label className='block text-sm font-medium text-white mb-1'>
-          Email
-        </label>
-        <input
-          type='email'
-          required
-          value={email}
-          onChange={handleEmailChange}
-          className={`w-full px-4 py-2 rounded-lg bg-white/10 text-white border ${
-            emailError ? 'border-red-500' : 'border-white/20'
-          } focus:outline-none focus:border-[#E8552D] transition-colors`}
-        />
-        {emailError && (
-          <p className='text-red-500 text-sm mt-1'>{emailError}</p>
-        )}
-        {!isEmailVerified && !generatedOtp && (
-          <p className='text-sm mt-2 text-white/70'>
-            {isSubmitting
-              ? 'Sending OTP...'
-              : 'Enter a valid email to receive an OTP'}
-          </p>
-        )}
-      </div>
+      {!isLoggedIn && (
+        <>
+          <div>
+            <label className='block text-sm font-medium mb-1 text-white'>
+              Name
+            </label>
+            <input
+              type='text'
+              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className='w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors text-white'
+            />
+          </div>
+          <div>
+            <label className='block text-sm font-medium text-white mb-1'>
+              Phone Number
+            </label>
+            <input
+              type='tel'
+              required
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
+              className='w-full px-4 py-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors'
+            />
+          </div>
+          <div>
+            <label className='block text-sm font-medium text-white mb-1'>
+              Email
+            </label>
+            <input
+              type='email'
+              required
+              value={email}
+              onChange={handleEmailChange}
+              className={`w-full px-4 py-2 rounded-lg bg-white/10 text-white border ${
+                emailError ? 'border-red-500' : 'border-white/20'
+              } focus:outline-none focus:border-[#E8552D] transition-colors`}
+            />
+            {emailError && (
+              <p className='text-red-500 text-sm mt-1'>{emailError}</p>
+            )}
+            {!isEmailVerified && !generatedOtp && (
+              <p className='text-sm mt-2 text-white/70'>
+                {isSubmitting
+                  ? 'Sending OTP...'
+                  : 'Enter a valid email to receive an OTP'}
+              </p>
+            )}
+          </div>
+        </>
+      )}
+      {isLoggedIn && !isEmailVerified && !generatedOtp && (
+        <p className='text-sm text-white/70'>
+          {isSubmitting ? 'Sending OTP...' : `OTP will be sent to ${email}`}
+        </p>
+      )}
       {!isEmailVerified && generatedOtp && (
         <div>
+          {isLoggedIn && (
+            <p className='text-sm text-white/70 mb-2'>
+              OTP sent to{' '}
+              <span className='text-[#E8552D] font-medium'>{email}</span>
+            </p>
+          )}
           <label className='block text-sm font-medium text-white mb-1'>
             Enter OTP
           </label>

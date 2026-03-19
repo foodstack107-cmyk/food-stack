@@ -152,7 +152,15 @@ const Navbar = () => {
                             {session.user?.email}
                           </p>
                         </div>
-                        <div className='p-2'>
+                        <div className='p-2 space-y-1'>
+                          <Link
+                            href='/profile'
+                            onClick={() => setUserMenuOpen(false)}
+                            className='w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-white/70 hover:bg-white/5 hover:text-white transition-all text-sm font-medium'
+                          >
+                            <User className='w-4 h-4' />
+                            My Profile
+                          </Link>
                           <button
                             onClick={() => {
                               setUserMenuOpen(false);
@@ -263,15 +271,24 @@ const Navbar = () => {
                       </p>
                     </div>
                   </div>
-                  <button
-                    onClick={() => {
-                      setIsOpen(false);
-                      signOut({ callbackUrl: '/' });
-                    }}
-                    className='p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors'
-                  >
-                    <LogOut className='w-5 h-5' />
-                  </button>
+                  <div className='flex items-center gap-2'>
+                    <Link
+                      href='/profile'
+                      onClick={() => setIsOpen(false)}
+                      className='p-2 rounded-xl bg-white/5 text-white/70 hover:bg-white/10 transition-colors'
+                    >
+                      <User className='w-5 h-5' />
+                    </Link>
+                    <button
+                      onClick={() => {
+                        setIsOpen(false);
+                        signOut({ callbackUrl: '/' });
+                      }}
+                      className='p-2 rounded-xl bg-red-500/10 text-red-400 hover:bg-red-500/20 transition-colors'
+                    >
+                      <LogOut className='w-5 h-5' />
+                    </button>
+                  </div>
                 </div>
               ) : (
                 <Link href='/login' onClick={() => setIsOpen(false)}>

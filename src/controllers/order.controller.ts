@@ -8,11 +8,25 @@ import {
 } from '@/services/order.service';
 import { generateOrderStatusTemplate } from '@/templates/OrderStatus';
 
-// Create Enquiry
+// Create Order
 export async function createOrderHandler(req: NextRequest) {
   try {
     const body = await req.json();
     const order = await createOrder(body);
+
+    // Send order confirmation email to customer
+    try {
+      const htmlTemplate = generateOrderStatusTemplate(order);
+      await sendEmail(
+        [order?.customerDetails?.email],
+        `Order Confirmation - ${order.orderId}`,
+        htmlTemplate,
+        [],
+      );
+    } catch (emailError) {
+      console.error('Failed to send order confirmation email:', emailError);
+    }
+
     return NextResponse.json(
       { data: order, message: 'Order created successfully', success: true },
       { status: 201 },

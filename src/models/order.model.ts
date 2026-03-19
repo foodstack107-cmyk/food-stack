@@ -9,6 +9,7 @@ const CustomerDetailsSchema = new Schema({
 
 const CartItemSchema = new Schema({
   productId: { type: mongoose.Schema.Types.ObjectId, ref: 'Product' },
+  name: { type: String, required: true },
   quantity: { type: Number, required: true },
   price: { type: Number, required: true },
 });
@@ -40,6 +41,7 @@ export interface CustomerDetails extends Document {
 
 export interface CartItem {
   productId?: mongoose.Types.ObjectId;
+  name: string;
   quantity: number;
   price: number;
 }

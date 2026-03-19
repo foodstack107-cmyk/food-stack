@@ -1,9 +1,10 @@
-import { MongoClient } from 'mongodb';
+/* eslint-disable no-console */
 import bcrypt from 'bcryptjs';
+import { MongoClient } from 'mongodb';
 
 async function createAdmin() {
   const client = await MongoClient.connect('mongodb://localhost:27017');
-  const db = client.db('shiv_shakti');
+  const db = client.db('food_stack_db');
 
   const hashedPassword = await bcrypt.hash('admin123', 10);
 
@@ -11,7 +12,7 @@ async function createAdmin() {
     name: 'Admin',
     email: 'admin@shivshakti.com',
     password: hashedPassword,
-    role: 'Admin'
+    role: 'Admin',
   });
 
   console.log('✅ Admin user created!');

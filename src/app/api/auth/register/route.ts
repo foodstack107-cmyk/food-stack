@@ -26,7 +26,7 @@ export async function POST(req: Request) {
     const hashedPassword = await hash(password, 10);
     await db
       .collection('users')
-      .insertOne({ name, email, password: hashedPassword, role: 'Admin' });
+      .insertOne({ name, email, password: hashedPassword, role: 'Customer' });
 
     return NextResponse.json(
       { message: 'User registered successfully' },

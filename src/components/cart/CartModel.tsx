@@ -1,5 +1,6 @@
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtom } from 'jotai';
+import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
 import { generateOtp, verifyOtp } from '@/lib/utils';
@@ -24,7 +25,6 @@ import {
   generateAdminCancellationEmailTemplate,
   generateAdminOrderEmailTemplate,
   generateCustomerCancellationEmailTemplate,
-  generateCustomerOrderEmailTemplate,
 } from './emailTemplates';
 import OrderDetailsView from './OrderDetails';
 import SuccessView from './SuccessView';
@@ -58,6 +58,28 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   const [generatedOtp, setGeneratedOtp] = useState<string>('');
   const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
+  const { data: session } = useSession();
+  const isLoggedIn = !!session?.user;
+
+  // Auto-fill user details from session
+  useEffect(() => {
+    if (isLoggedIn && session?.user) {
+      setName(session.user.name || '');
+      setEmail(session.user.email || '');
+
+      // Fetch phone from profile
+      fetch('/api/auth/profile')
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.user?.phone?.number) {
+            setPhone(data.user.phone.number);
+          }
+        })
+        .catch(() => {
+          console.warn('Failed to fetch user profile for phone number');
+        });
+    }
+  }, [isLoggedIn, session?.user]);
 
   const handleSendOtp = async (): Promise<void> => {
     const otp = generateOtp();
@@ -205,59 +227,32 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
         success: boolean;
       }
 
-      const [createOrderRes, adminEmailTemplate, customerEmailTemplate] =
-        await Promise.all([
-          createOrder.mutateAsync(newOrder) as Promise<CreateOrderResponse>,
-          Promise.resolve(
-            generateAdminOrderEmailTemplate(
-              cart,
-              total,
-              newOrder.customerDetails,
-              orderId,
-            ),
-          ),
-          Promise.resolve(
-            generateCustomerOrderEmailTemplate(
-              cart,
-              total,
-              newOrder.customerDetails,
-              orderId,
-            ),
-          ),
-        ]);
+      const createOrderRes = (await createOrder.mutateAsync(
+        newOrder,
+      )) as CreateOrderResponse;
 
       if (!createOrderRes.success) {
         throw new Error('Order creation failed');
       }
 
-      const emailPromises = [
-        fetch('/api/send-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            recipients: [phone],
-            subject: `Order Confirmation - ${orderId}`,
-            template: customerEmailTemplate,
-            ccRecipients: [],
-          }),
-        }),
-        fetch('/api/send-email', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            recipients: ['admin@example.com'],
-            subject: `New Order - ${orderId}`,
-            template: adminEmailTemplate,
-            ccRecipients: [],
-          }),
-        }),
-      ];
+      // Send admin notification email
+      const adminEmailTemplate = generateAdminOrderEmailTemplate(
+        cart,
+        total,
+        newOrder.customerDetails,
+        orderId,
+      );
 
-      const [customerRes, adminRes] = await Promise.all(emailPromises);
-
-      if (!customerRes.ok || !adminRes.ok) {
-        throw new Error('Failed to send emails');
-      }
+      await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipients: [email],
+          subject: `New Order - ${orderId}`,
+          template: adminEmailTemplate,
+          ccRecipients: [],
+        }),
+      });
 
       setRecentOrders((prev) => [newOrder, ...prev].slice(0, 5));
       setCurrentOrder(newOrder);
@@ -316,7 +311,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          recipients: ['sahilpreet.singh@tickmark.io'],
+          recipients: [cancelledOrder.customerDetails.email],
           subject: `Order Cancellation - ${cancelledOrder.orderId}`,
           template: adminCancellationEmailTemplate,
           ccRecipients: [],
@@ -328,7 +323,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          recipients: [cancelledOrder.customerDetails.phone],
+          recipients: [cancelledOrder.customerDetails.email],
           subject: `Order Cancellation Confirmation - ${cancelledOrder.orderId}`,
           template: customerCancellationEmailTemplate,
           ccRecipients: [],
@@ -470,6 +465,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                   handleSendOtp={handleSendOtp}
                   handleVerifyOtp={handleVerifyOtp}
                   handleSubmitOrder={handleSubmitOrder}
+                  isLoggedIn={isLoggedIn}
                 />
               )}
               {viewState === 'success' && (
