@@ -1,4 +1,4 @@
-import { mongoose } from '@/database/mongooseConfig';
+import mongoose from 'mongoose';
 
 import { Order } from '@/models/order.model';
 
@@ -18,13 +18,12 @@ export const getAllOrder = async () => {
 
 // update order status
 export const updateOrderStatus = async (
-  orderId: string,
+  id: string,
   status: 'placed' | 'processing' | 'ready' | 'cancelled',
 ) => {
-  const order = await Order.findOneAndUpdate(
-    { _id: new mongoose.Types.ObjectId(orderId) },
-    { status },
-    { new: true },
-  );
+  const query = mongoose.Types.ObjectId.isValid(id)
+    ? { _id: id }
+    : { orderId: id };
+  const order = await Order.findOneAndUpdate(query, { status }, { new: true });
   return order;
 };

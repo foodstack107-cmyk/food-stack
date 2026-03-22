@@ -61,6 +61,42 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   const { data: session } = useSession();
   const isLoggedIn = !!session?.user;
 
+  // Sync recent order statuses from server when modal opens
+  useEffect(() => {
+    if (!isOpen || recentOrders.length === 0) return;
+
+    const syncOrderStatuses = async () => {
+      try {
+        const res = await fetch('/api/v1/orders');
+        if (!res.ok) return;
+        const { data: serverOrders } = await res.json();
+        if (!Array.isArray(serverOrders)) return;
+
+        const serverOrderMap = new Map(
+          serverOrders.map((o: OrderDetails) => [o.orderId, o]),
+        );
+
+        const updated = recentOrders.map((local) => {
+          const server = serverOrderMap.get(local.orderId) as
+            | OrderDetails
+            | undefined;
+          return server ? { ...local, status: server.status } : local;
+        });
+
+        const hasChanges = updated.some(
+          (order, i) => order.status !== recentOrders[i].status,
+        );
+        if (hasChanges) {
+          setRecentOrders(updated);
+        }
+      } catch {
+        // Silently fail - stale status is acceptable as fallback
+      }
+    };
+
+    syncOrderStatuses();
+  }, [isOpen]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Auto-fill user details from session
   useEffect(() => {
     if (isLoggedIn && session?.user) {

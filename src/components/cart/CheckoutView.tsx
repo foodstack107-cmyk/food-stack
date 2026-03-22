@@ -158,18 +158,6 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
           </div>
           <div>
             <label className='block text-sm font-medium text-white mb-1'>
-              Phone Number
-            </label>
-            <input
-              type='tel'
-              required
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
-              className='w-full px-4 py-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors'
-            />
-          </div>
-          <div>
-            <label className='block text-sm font-medium text-white mb-1'>
               Email
             </label>
             <input
@@ -194,6 +182,18 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
           </div>
         </>
       )}
+      <div>
+        <label className='block text-sm font-medium text-white mb-1'>
+          Phone Number
+        </label>
+        <input
+          type='tel'
+          required
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          className='w-full px-4 py-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors'
+        />
+      </div>
       {isLoggedIn && !isEmailVerified && !generatedOtp && (
         <p className='text-sm text-white/70'>
           {isSubmitting ? 'Sending OTP...' : `OTP will be sent to ${email}`}
