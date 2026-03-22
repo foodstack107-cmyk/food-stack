@@ -1,7 +1,17 @@
 'use client';
 
 import { AnimatePresence, motion, useScroll } from 'framer-motion';
-import { ChevronDown, LogOut, Menu, ShoppingBag, User, X } from 'lucide-react';
+import {
+  BookOpen,
+  Calendar,
+  ChevronDown,
+  LogOut,
+  Menu,
+  Newspaper,
+  ShoppingBag,
+  User,
+  X,
+} from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -12,6 +22,9 @@ const menuItems = [
   { title: 'Home', link: '/' },
   { title: 'About', link: '/about' },
   { title: 'Menu', link: '/menu' },
+  { title: 'Blog', link: '/blog/food-tips', icon: BookOpen },
+  { title: 'News', link: '/blog/latest-news', icon: Newspaper },
+  { title: 'Schedule', link: '/schedule', icon: Calendar },
   { title: 'FAQ', link: '/faq' },
   { title: 'Contact', link: '/contact' },
 ];
