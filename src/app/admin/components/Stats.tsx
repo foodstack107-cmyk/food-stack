@@ -10,12 +10,12 @@ export function Stats() {
         </div>
         <div className='bg-white p-6 rounded-lg shadow-sm'>
           <h3 className='text-lg font-semibold mb-2'>Revenue</h3>
-          <p className='text-3xl font-bold'>$45,678</p>
+          <p className='text-3xl font-bold'>₹45,678</p>
           <p className='text-sm text-gray-500 mt-2'>+8% from last month</p>
         </div>
         <div className='bg-white p-6 rounded-lg shadow-sm'>
           <h3 className='text-lg font-semibold mb-2'>Average Order Value</h3>
-          <p className='text-3xl font-bold'>$37.50</p>
+          <p className='text-3xl font-bold'>₹37.50</p>
           <p className='text-sm text-gray-500 mt-2'>+5% from last month</p>
         </div>
         <div className='bg-white p-6 rounded-lg shadow-sm'>

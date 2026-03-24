@@ -118,10 +118,10 @@ export default function FilterPanel({
 
   // Price range presets
   const priceRanges = [
-    { label: 'Under $25', value: 25 },
-    { label: 'Under $50', value: 50 },
-    { label: 'Under $75', value: 75 },
-    { label: 'Under $100', value: 100 },
+    { label: 'Under ₹25', value: 25 },
+    { label: 'Under ₹50', value: 50 },
+    { label: 'Under ₹75', value: 75 },
+    { label: 'Under ₹100', value: 100 },
   ];
 
   // Clear filters but keep the price
@@ -167,7 +167,7 @@ export default function FilterPanel({
 
             {maxPrice > 0 && (
               <FilterTag
-                label={`Max $${maxPrice}`}
+                label={`Max ₹${maxPrice}`}
                 onRemove={handleClearPrice}
               />
             )}
@@ -280,7 +280,7 @@ export default function FilterPanel({
 
             {/* Price Dropdown */}
             <Dropdown
-              label={maxPrice === 0 ? 'Price Range' : `Max $${maxPrice}`}
+              label={maxPrice === 0 ? 'Price Range' : `Max ₹${maxPrice}`}
               icon={DollarSign}
               isOpen={priceDropdownOpen}
               toggle={() => {
@@ -323,11 +323,11 @@ export default function FilterPanel({
                       className='w-full h-2 bg-gradient-to-r from-orange-500 to-orange-600 rounded-lg appearance-none cursor-pointer'
                     />
                     <div className='flex justify-between text-white/60 text-xs mt-2'>
-                      <span>$0</span>
+                      <span>₹0</span>
                       <span className='text-white font-medium'>
-                        ${maxPrice}
+                        ₹{maxPrice}
                       </span>
-                      <span>${maxPriceLimit}</span>
+                      <span>₹{maxPriceLimit}</span>
                     </div>
                   </div>
                 </div>

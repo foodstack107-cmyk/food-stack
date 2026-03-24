@@ -3,6 +3,8 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 
+import { currencyFormatter } from '@/lib/utils';
+
 export interface MenuItem {
   id: number;
   name: string;
@@ -21,7 +23,7 @@ export const menuItems: MenuItem[] = [
     name: 'Crispy Spring Rolls',
     description:
       'Fresh vegetables wrapped in crispy rice paper, served with sweet chili sauce',
-    price: 8.99,
+    price: 746,
     category: 'appetizers',
     image:
       'https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=1000',
@@ -32,7 +34,7 @@ export const menuItems: MenuItem[] = [
     name: 'Grilled Salmon',
     description:
       'Fresh Atlantic salmon with lemon herb butter sauce and seasonal vegetables',
-    price: 24.99,
+    price: 2074,
     category: 'main',
     image:
       'https://images.unsplash.com/photo-1485921325833-c519f76c4927?q=80&w=1000',
@@ -43,7 +45,7 @@ export const menuItems: MenuItem[] = [
     name: 'Spicy Thai Curry',
     description:
       'Authentic Thai red curry with coconut milk, vegetables, and your choice of protein',
-    price: 18.99,
+    price: 1576,
     category: 'main',
     image:
       'https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?q=80&w=1000',
@@ -54,7 +56,7 @@ export const menuItems: MenuItem[] = [
     name: 'Chocolate Lava Cake',
     description:
       'Warm chocolate cake with a molten center, served with vanilla ice cream',
-    price: 9.99,
+    price: 829,
     category: 'desserts',
     image:
       'https://images.unsplash.com/photo-1624353365286-3f8d62daad51?q=80&w=1000',
@@ -65,7 +67,7 @@ export const menuItems: MenuItem[] = [
     name: 'Craft Mojito',
     description:
       'Fresh mint, lime, rum, and soda water with a hint of sweetness',
-    price: 12.99,
+    price: 1078,
     category: 'drinks',
     image:
       'https://images.unsplash.com/photo-1551538827-9c037cb4f32a?q=80&w=1000',
@@ -75,7 +77,7 @@ export const menuItems: MenuItem[] = [
     id: 6,
     name: 'Bruschetta',
     description: 'Toasted bread topped with fresh tomatoes, garlic, and basil',
-    price: 7.99,
+    price: 663,
     category: 'appetizers',
     image:
       'https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?q=80&w=1000',
@@ -108,7 +110,9 @@ export default function MenuCard({ item, index }: MenuCardProps) {
       <div className='p-6'>
         <div className='flex justify-between items-start mb-4'>
           <h3 className='text-xl font-semibold text-white'>{item.name}</h3>
-          <span className='text-white font-bold'>${item.price.toFixed(2)}</span>
+          <span className='text-white font-bold'>
+            {currencyFormatter.format(item.price)}
+          </span>
         </div>
         <p className='text-gray-300 text-sm mb-4'>{item.description}</p>
         <div className='flex items-center justify-between'>

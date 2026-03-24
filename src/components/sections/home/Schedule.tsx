@@ -28,7 +28,7 @@ export default function ScheduleSection() {
   });
 
   return (
-    <div className='relative bg-[#0B1426] py-16 sm:py-24 overflow-hidden'>
+    <div className='relative bg-[#0B1426] pt-28 overflow-hidden'>
       {/* Background styling */}
       <div className='absolute inset-0 z-0'>
         <div className='absolute inset-0 bg-gradient-to-b from-[#1A2744]/20 to-[#0B1426] backdrop-blur-3xl' />

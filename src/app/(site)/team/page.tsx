@@ -12,7 +12,7 @@ const Team = () => {
   const { data: teamMembers, isLoading, error } = useGetAlUsers();
 
   return (
-    <div className='min-h-screen bg-gradient-to-br from-[#0B1426] via-[#1A2744] to-[#2D4A7A]'>
+    <div className='min-h-screen bg-gradient-to-br from-[#0B1426] via-[#1A2744] to-[#2D4A7A] pt-20'>
       <div className='container mx-auto px-4 py-8 sm:py-12 md:py-16'>
         <motion.div
           initial={{ opacity: 0, y: -20 }}

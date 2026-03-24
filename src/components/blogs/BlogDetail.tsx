@@ -2,7 +2,6 @@
 
 import { ArrowLeft, Calendar, ChefHat, Tag } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { useParams, useRouter } from 'next/navigation';
 
 import { useGetAllBlogs } from '@/hooks/blog/query';
@@ -84,10 +83,6 @@ const BlogDetail = ({ resourceType }: BlogDetailProps) => {
 
   /* ---------------- RELATED BLOGS ---------------- */
 
-  const relatedBlogs: Blog[] = blogs
-    .filter((b: Blog) => b.blogType === blog.blogType && b._id !== blog._id)
-    .slice(0, 3);
-
   return (
     <div className='min-h-screen bg-[#0B1426] text-white relative overflow-hidden'>
       {/* Background */}
@@ -165,52 +160,6 @@ const BlogDetail = ({ resourceType }: BlogDetailProps) => {
               ))}
           </div>
         </div>
-
-        {/* RELATED BLOGS */}
-
-        {relatedBlogs.length > 0 && (
-          <div className='mt-24'>
-            <h2 className='text-3xl font-bold mb-8'>
-              Related {resourceType === 'food-tips' ? 'Tips' : 'Articles'}
-            </h2>
-
-            <div className='grid grid-cols-1 md:grid-cols-3 gap-8'>
-              {relatedBlogs.map((relatedBlog: Blog) => (
-                <Link
-                  key={relatedBlog._id}
-                  href={`/${resourceType}/${relatedBlog._id}`}
-                  className='group bg-white/5 border border-white/10 rounded-3xl overflow-hidden hover:border-[#E8552D]/50 transition-all hover:-translate-y-2 flex flex-col'
-                >
-                  <div className='relative h-48'>
-                    <Image
-                      src={relatedBlog.image}
-                      alt={relatedBlog.title}
-                      fill
-                      className='object-cover group-hover:scale-110 transition-transform'
-                    />
-                  </div>
-
-                  <div className='p-6 flex flex-col flex-1'>
-                    <h3 className='font-bold text-lg mb-3 group-hover:text-[#E8552D]'>
-                      {relatedBlog.title}
-                    </h3>
-
-                    <p className='text-sm text-white/60 line-clamp-2 mb-4'>
-                      {relatedBlog.description}
-                    </p>
-
-                    <div
-                      className={`mt-auto text-sm ${config.textColor} flex items-center gap-2`}
-                    >
-                      Read Guide
-                      <ArrowLeft className='w-4 h-4 rotate-180' />
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
     </div>
   );

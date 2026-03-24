@@ -2,10 +2,12 @@
 
 import { motion } from 'framer-motion';
 import { useAtom } from 'jotai';
-import { Info, Minus, Plus, ShoppingCart } from 'lucide-react';
+import { Minus, Plus, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+
+import { currencyFormatter } from '@/lib/utils';
 
 import { addToCart, cartAtomWithStorage, removeFromCart } from '@/store/atom';
 
@@ -69,14 +71,6 @@ export default function MenuCard({ item }: MenuCardProps) {
     setCart(removeFromCart(cart, itemId));
   };
 
-  const handleUberEatsClick = () => {
-    setClickData({ buttonType: 'uber-eats', itemId, itemName: item.name });
-  };
-
-  const handleDoorDashClick = () => {
-    setClickData({ buttonType: 'doordash', itemId, itemName: item.name });
-  };
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -114,7 +108,7 @@ export default function MenuCard({ item }: MenuCardProps) {
               className='px-3 py-1 rounded-full text-sm font-bold 
                            bg-[#E8552D] text-black/80 shadow-lg'
             >
-              ${item.price.toFixed(2)}
+              {currencyFormatter.format(item.price)}
             </span>
           </div>
 
@@ -187,73 +181,6 @@ export default function MenuCard({ item }: MenuCardProps) {
                 </motion.button>
               )}
             </div>
-
-            {/* Delivery Options */}
-            {item.uberEatsLink || item.doordashLink ? (
-              <div className='flex gap-2 w-full'>
-                {item.uberEatsLink && (
-                  <a
-                    href={item.uberEatsLink}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='flex-1'
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={handleUberEatsClick}
-                      className='w-full px-3 py-2 bg-black/40 hover:bg-black/50 border border-white/10
-                               text-white text-xs font-medium rounded-full transition-all
-                               flex items-center justify-center gap-1.5'
-                    >
-                      UberEats
-                      <Image
-                        src='/images/uberEats.png'
-                        alt='UberEats'
-                        width={16}
-                        height={16}
-                      />
-                    </motion.button>
-                  </a>
-                )}
-
-                {item.doordashLink && (
-                  <a
-                    href={item.doordashLink}
-                    target='_blank'
-                    rel='noopener noreferrer'
-                    className='flex-1'
-                  >
-                    <motion.button
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                      onClick={handleDoorDashClick}
-                      className='w-full px-3 py-2 bg-black/40 hover:bg-black/50 border border-white/10
-                               text-white text-xs font-medium rounded-full transition-all
-                               flex items-center justify-center gap-1.5'
-                    >
-                      DoorDash
-                      <Image
-                        src='/images/doordash.ico'
-                        alt='DoorDash'
-                        width={16}
-                        height={16}
-                      />
-                    </motion.button>
-                  </a>
-                )}
-              </div>
-            ) : (
-              <div className='w-full'>
-                <p
-                  className='text-center text-xs py-2 bg-black/30 text-white/70 
-                             rounded-full border border-white/10 flex items-center justify-center gap-1.5'
-                >
-                  <Info size={14} className='text-white/70' />
-                  Not available for delivery
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </div>

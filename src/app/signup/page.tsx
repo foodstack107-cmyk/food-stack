@@ -8,7 +8,12 @@ export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [form, setForm] = useState({ name: '', email: '', password: '', confirm: '' });
+  const [form, setForm] = useState({
+    name: '',
+    email: '',
+    password: '',
+    confirm: '',
+  });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
 
@@ -27,7 +32,11 @@ export default function SignupPage() {
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.name, email: form.email, password: form.password }),
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+        }),
       });
       if (!res.ok) {
         const data = await res.json();
@@ -66,7 +75,8 @@ export default function SignupPage() {
           </h2>
           <div className='w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto rounded-full mb-6' />
           <p className='text-gray-300 text-lg max-w-md leading-relaxed'>
-            Join us today and enjoy authentic Indian & Nepali cuisine delivered straight to your door.
+            Join us today and enjoy authentic Indian & Nepali cuisine delivered
+            straight to your door.
           </p>
         </div>
       </div>
@@ -88,12 +98,26 @@ export default function SignupPage() {
             {success ? (
               <div className='text-center py-6'>
                 <div className='w-16 h-16 mx-auto bg-green-500/20 rounded-full flex items-center justify-center mb-4'>
-                  <svg className='w-8 h-8 text-green-400' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
-                    <path strokeLinecap='round' strokeLinejoin='round' strokeWidth={2} d='M5 13l4 4L19 7' />
+                  <svg
+                    className='w-8 h-8 text-green-400'
+                    fill='none'
+                    viewBox='0 0 24 24'
+                    stroke='currentColor'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M5 13l4 4L19 7'
+                    />
                   </svg>
                 </div>
-                <h3 className='text-xl font-bold text-white mb-2'>Account Created!</h3>
-                <p className='text-gray-400 mb-6'>Your account has been created successfully.</p>
+                <h3 className='text-xl font-bold text-white mb-2'>
+                  Account Created!
+                </h3>
+                <p className='text-gray-400 mb-6'>
+                  Your account has been created successfully.
+                </p>
                 <Link
                   href='/login'
                   className='inline-block py-3 px-6 bg-gradient-to-r from-orange-500 to-orange-600 text-white font-semibold rounded-lg hover:from-orange-600 hover:to-orange-700 transition-all duration-200'
@@ -104,7 +128,9 @@ export default function SignupPage() {
             ) : (
               <>
                 <div className='text-center mb-8'>
-                  <h3 className='text-2xl font-bold text-white mb-2'>Create Account</h3>
+                  <h3 className='text-2xl font-bold text-white mb-2'>
+                    Create Account
+                  </h3>
                   <p className='text-gray-400'>Sign up to get started</p>
                 </div>
 
@@ -163,7 +189,11 @@ export default function SignupPage() {
                       onClick={() => setShowPassword((v) => !v)}
                       className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300'
                     >
-                      {showPassword ? <EyeOff className='h-5 w-5' /> : <Eye className='h-5 w-5' />}
+                      {showPassword ? (
+                        <EyeOff className='h-5 w-5' />
+                      ) : (
+                        <Eye className='h-5 w-5' />
+                      )}
                     </button>
                   </div>
 
@@ -185,7 +215,11 @@ export default function SignupPage() {
                       onClick={() => setShowConfirm((v) => !v)}
                       className='absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-300'
                     >
-                      {showConfirm ? <EyeOff className='h-5 w-5' /> : <Eye className='h-5 w-5' />}
+                      {showConfirm ? (
+                        <EyeOff className='h-5 w-5' />
+                      ) : (
+                        <Eye className='h-5 w-5' />
+                      )}
                     </button>
                   </div>
 
@@ -207,7 +241,10 @@ export default function SignupPage() {
 
                 <p className='text-center text-gray-400 text-sm mt-6'>
                   Already have an account?{' '}
-                  <Link href='/login' className='text-orange-400 hover:text-orange-300 font-medium transition-colors'>
+                  <Link
+                    href='/login'
+                    className='text-orange-400 hover:text-orange-300 font-medium transition-colors'
+                  >
                     Sign in
                   </Link>
                 </p>

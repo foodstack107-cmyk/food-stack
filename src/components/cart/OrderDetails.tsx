@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
 import { Clock } from 'lucide-react';
 
+import { currencyFormatter } from '@/lib/utils';
+
 import { OrderDetails } from '@/types/menu';
 
 interface OrderDetailsViewProps {
@@ -58,7 +60,7 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
                 <span className='text-white'>{item.name}</span>
               </div>
               <span className='text-white/70'>
-                ${(item.price * item.quantity).toFixed(2)}
+                {currencyFormatter.format(item.price * item.quantity)}
               </span>
             </div>
           ))}
@@ -68,12 +70,14 @@ const OrderDetailsView: React.FC<OrderDetailsViewProps> = ({
       <div className='border-t border-white/10 pt-4 mb-6'>
         <div className='flex justify-between mb-2'>
           <span className='text-white/70'>Subtotal</span>
-          <span className='text-white'>${currentOrder?.total.toFixed(2)}</span>
+          <span className='text-white'>
+            {currencyFormatter.format(currentOrder?.total || 0)}
+          </span>
         </div>
         <div className='flex justify-between font-bold'>
           <span className='text-white'>Total</span>
           <span className='text-[#E8552D]'>
-            ${currentOrder?.total.toFixed(2)}
+            {currencyFormatter.format(currentOrder?.total || 0)}
           </span>
         </div>
       </div>

@@ -1,5 +1,7 @@
 import { motion } from 'framer-motion';
 
+import { currencyFormatter } from '@/lib/utils';
+
 import { CartItem, OrderDetails } from '@/types/menu';
 interface CartModalFooterProps {
   viewState: 'cart' | 'checkout' | 'success' | 'orderDetails' | 'cancellation';
@@ -36,7 +38,7 @@ const CartModalFooter: React.FC<CartModalFooterProps> = ({
         <div className='flex justify-between items-center mb-4'>
           <span className='text-white/70'>Total:</span>
           <span className='font-bold text-lg sm:text-xl text-white'>
-            ${total.toFixed(2)}
+            {currencyFormatter.format(total)}
           </span>
         </div>
         <div className='flex gap-2'>
@@ -70,7 +72,7 @@ const CartModalFooter: React.FC<CartModalFooterProps> = ({
         <div className='flex justify-between items-center mb-4'>
           <span className='text-white/70'>Subtotal:</span>
           <span className='font-bold text-lg sm:text-xl text-white'>
-            ${total.toFixed(2)}
+            {currencyFormatter.format(total)}
           </span>
         </div>
         <motion.button

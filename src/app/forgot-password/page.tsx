@@ -22,7 +22,9 @@ export default function ForgotPasswordPage() {
       });
       if (!res.ok) {
         const data = await res.json();
-        setError(data.message || 'Failed to send reset email. Please try again.');
+        setError(
+          data.message || 'Failed to send reset email. Please try again.',
+        );
       } else {
         setSubmitted(true);
       }
@@ -57,7 +59,8 @@ export default function ForgotPasswordPage() {
           </h2>
           <div className='w-24 h-1 bg-gradient-to-r from-orange-500 to-orange-600 mx-auto rounded-full mb-6' />
           <p className='text-gray-300 text-lg max-w-md leading-relaxed'>
-            No worries! We'll send you a link to reset your password and get you back in no time.
+            No worries! We'll send you a link to reset your password and get you
+            back in no time.
           </p>
         </div>
       </div>
@@ -81,7 +84,9 @@ export default function ForgotPasswordPage() {
                 <div className='w-16 h-16 mx-auto bg-orange-500/20 rounded-full flex items-center justify-center mb-4'>
                   <Mail className='w-8 h-8 text-orange-400' />
                 </div>
-                <h3 className='text-xl font-bold text-white mb-2'>Check Your Email</h3>
+                <h3 className='text-xl font-bold text-white mb-2'>
+                  Check Your Email
+                </h3>
                 <p className='text-gray-400 mb-2'>
                   We've sent a password reset link to
                 </p>
@@ -90,7 +95,10 @@ export default function ForgotPasswordPage() {
                   Didn't receive it? Check your spam folder or try again.
                 </p>
                 <button
-                  onClick={() => { setSubmitted(false); setEmail(''); }}
+                  onClick={() => {
+                    setSubmitted(false);
+                    setEmail('');
+                  }}
                   className='text-orange-400 hover:text-orange-300 font-medium text-sm transition-colors'
                 >
                   Try a different email
@@ -99,8 +107,12 @@ export default function ForgotPasswordPage() {
             ) : (
               <>
                 <div className='text-center mb-8'>
-                  <h3 className='text-2xl font-bold text-white mb-2'>Forgot Password?</h3>
-                  <p className='text-gray-400'>Enter your email and we'll send you a reset link.</p>
+                  <h3 className='text-2xl font-bold text-white mb-2'>
+                    Forgot Password?
+                  </h3>
+                  <p className='text-gray-400'>
+                    Enter your email and we'll send you a reset link.
+                  </p>
                 </div>
 
                 {error && (

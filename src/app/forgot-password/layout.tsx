@@ -15,7 +15,11 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
-export default function ForgotPasswordLayout({ children }: { children: React.ReactNode }) {
+export default function ForgotPasswordLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Navbar />

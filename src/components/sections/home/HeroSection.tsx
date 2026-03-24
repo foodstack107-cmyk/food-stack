@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
-import { ChevronRight, Clock, MapPin, Star } from 'lucide-react';
+import { Clock, Star } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -64,7 +63,7 @@ const Hero = () => {
             </motion.p>
 
             {/* Search/CTA Bar */}
-            <motion.div
+            {/* <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.4 }}
@@ -87,7 +86,6 @@ const Hero = () => {
                 </Link>
               </div>
 
-              {/* Trust Indicators below CTA */}
               <div className='flex flex-wrap items-center justify-center lg:justify-start gap-6 mt-6'>
                 <div className='flex items-center gap-2 text-white/50 text-sm'>
                   <Clock className='w-4 h-4 text-[#E8552D]' />
@@ -114,7 +112,7 @@ const Hero = () => {
                   />
                 </div>
               </div>
-            </motion.div>
+            </motion.div> */}
           </div>
 
           {/* Right Content Area - Dynamic Image Composition */}

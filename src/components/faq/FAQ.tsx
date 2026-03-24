@@ -200,13 +200,13 @@ export function FAQ() {
                 onClick={(e) => {
                   e.preventDefault();
                   window.open(
-                    'https://mail.google.com/mail/?view=cm&fs=1&to=shiv0803shakti@gmail.com',
+                    'https://mail.google.com/mail/?view=cm&fs=1&to=foodstack107@gmail.com',
                     '_blank',
                   );
                 }}
                 className='inline-flex items-center gap-1 text-sm truncate hover:underline'
               >
-                shiv0803shakti@gmail.com
+                foodstack107@gmail.com
               </Link>
             </span>
           </div>

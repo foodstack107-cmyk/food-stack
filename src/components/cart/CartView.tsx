@@ -9,6 +9,8 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 
+import { currencyFormatter } from '@/lib/utils';
+
 import { CartItem, OrderDetails } from '@/types/menu';
 
 interface CartViewProps {
@@ -94,7 +96,7 @@ const CartView: React.FC<CartViewProps> = ({
                   {item.name}
                 </h3>
                 <p className='text-white/70 text-sm'>
-                  ${item.price.toFixed(2)}
+                  {currencyFormatter.format(item.price)}
                 </p>
               </div>
               <div className='flex items-center space-x-2 ml-2 flex-shrink-0'>
@@ -195,8 +197,8 @@ const CartView: React.FC<CartViewProps> = ({
                           </p>
                           <p className='text-white/80 text-sm mt-0.5'>
                             {order.items.length}{' '}
-                            {order.items.length === 1 ? 'item' : 'items'} · $
-                            {order.total.toFixed(2)}
+                            {order.items.length === 1 ? 'item' : 'items'} ·{' '}
+                            {currencyFormatter.format(order.total)}
                           </p>
                         </div>
                         <ChevronRight size={16} className='text-white/40' />

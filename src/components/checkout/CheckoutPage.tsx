@@ -5,6 +5,8 @@ import { ShoppingCart } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { currencyFormatter } from '@/lib/utils';
+
 import { cartAtomWithStorage, cartTotalAtom, clearCart } from '@/store/atom';
 
 export default function CheckoutPage() {
@@ -130,7 +132,7 @@ export default function CheckoutPage() {
                     </p>
                   </div>
                   <p className='font-medium'>
-                    ${(item.price * item.quantity).toFixed(2)}
+                    {currencyFormatter.format(item.price * item.quantity)}
                   </p>
                 </div>
               ))}
@@ -138,7 +140,7 @@ export default function CheckoutPage() {
             <div className='border-t border-white/10 pt-4'>
               <div className='flex justify-between items-center text-lg font-bold'>
                 <span>Total</span>
-                <span>${total.toFixed(2)}</span>
+                <span>{currencyFormatter.format(total)}</span>
               </div>
             </div>
           </div>

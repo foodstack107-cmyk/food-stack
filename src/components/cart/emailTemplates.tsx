@@ -1,3 +1,5 @@
+import { currencyFormatter } from '@/lib/utils';
+
 import { CartItem, CustomerDetails, OrderDetails } from '@/types/menu';
 
 export const generateAdminOrderEmailTemplate = (
@@ -13,9 +15,9 @@ export const generateAdminOrderEmailTemplate = (
       <tr>
         <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.name}</td>
         <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantity}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">$${(
-          item.price * item.quantity
-        ).toFixed(2)}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${currencyFormatter.format(
+          item.price * item.quantity,
+        )}</td>
       </tr>
     `,
     )
@@ -43,9 +45,7 @@ export const generateAdminOrderEmailTemplate = (
           ${itemsHtml}
         </tbody>
       </table>
-      <h3 style="color: #E8552D; margin-top: 20px;">Total: $${total.toFixed(
-        2,
-      )}</h3>
+      <h3 style="color: #E8552D; margin-top: 20px;">Total: ${currencyFormatter.format(total)}</h3>
       <p style="margin-top: 20px;">Payment will be collected in cash upon pickup.</p>
     </div>
   `;
@@ -64,9 +64,9 @@ export const generateCustomerOrderEmailTemplate = (
       <tr>
         <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.name}</td>
         <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantity}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">$${(
-          item.price * item.quantity
-        ).toFixed(2)}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${currencyFormatter.format(
+          item.price * item.quantity,
+        )}</td>
       </tr>
     `,
     )
@@ -95,7 +95,7 @@ export const generateCustomerOrderEmailTemplate = (
           ${itemsHtml}
         </tbody>
       </table>
-      <h3 style="color: #E8552D; margin-top: 20px;">Total: $${total.toFixed(2)}</h3>
+      <h3 style="color: #E8552D; margin-top: 20px;">Total: ${currencyFormatter.format(total)}</h3>
       <p style="margin-top: 20px;">Payment will be collected in cash upon pickup.</p>
       <p style="margin-top: 30px; font-size: 12px; color: #666;">Thank you for choosing our restaurant. We look forward to serving you!</p>
     </div>
@@ -114,9 +114,9 @@ export const generateAdminCancellationEmailTemplate = (
       <tr>
         <td style="padding: 8px; border-bottom: 1px solid #ddd;">${item.name}</td>
         <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: center;">${item.quantity}</td>
-        <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">$${(
-          item.price * item.quantity
-        ).toFixed(2)}</td>
+        <td style="padding: 8px; border-bottom: 1px solid #ddd; text-align: right;">${currencyFormatter.format(
+          item.price * item.quantity,
+        )}</td>
       </tr>
     `,
     )
@@ -145,7 +145,7 @@ export const generateAdminCancellationEmailTemplate = (
           ${itemsHtml}
         </tbody>
       </table>
-      <h3 style="color: #0B1426; margin-top: 20px;">Total: $${total.toFixed(2)}</h3>
+      <h3 style="color: #0B1426; margin-top: 20px;">Total: ${currencyFormatter.format(total)}</h3>
       <p style="margin-top: 20px;">Please update your inventory and production plans accordingly.</p>
     </div>
   `;

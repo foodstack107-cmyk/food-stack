@@ -1,6 +1,6 @@
 'use client';
-import { SessionProvider } from 'next-auth/react';
 import { usePathname } from 'next/navigation';
+import { SessionProvider } from 'next-auth/react';
 import { useEffect } from 'react';
 
 import Banner from '@/components/banner/Banner';

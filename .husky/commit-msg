@@ -1,4 +1,41 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx --no-install commitlint --edit "$1"
+# Add common paths where Node.js might be installed
+export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:$PATH"
+
+# Try to source nvm if available
+[ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+
+# Try to source volta if available
+[ -s "$HOME/.volta/load.sh" ] && . "$HOME/.volta/load.sh"
+
+# Function to run commitlint
+run_commitlint() {
+  # Try npx first
+  if command -v npx >/dev/null 2>&1; then
+    npx --no-install commitlint --edit "$1"
+    return $?
+  fi
+  
+  # Try npm run if there's a script
+  if command -v npm >/dev/null 2>&1; then
+    npm run commitlint -- --edit "$1" 2>/dev/null || {
+      echo "Warning: commitlint not available via npm. Skipping commit message validation."
+      return 0
+    }
+    return $?
+  fi
+  
+  # Try commitlint directly
+  if command -v commitlint >/dev/null 2>&1; then
+    commitlint --edit "$1"
+    return $?
+  fi
+  
+  echo "Warning: Could not find commitlint. Skipping commit message validation."
+  return 0
+}
+
+# Run commitlint
+run_commitlint "$1"

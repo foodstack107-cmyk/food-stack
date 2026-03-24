@@ -1,3 +1,5 @@
+import { currencyFormatter } from '@/lib/utils';
+
 interface OrderStatusProps {
   orderId: string;
   items: Array<{
@@ -69,7 +71,7 @@ export const generateOrderStatusTemplate = ({
         <tr>
           <td style="padding: 12px 0; color: #C5D0E0; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.04);">${item.name}</td>
           <td style="padding: 12px 0; color: #8899B4; font-size: 14px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.04);">x${item.quantity}</td>
-          <td style="padding: 12px 0; color: #ffffff; font-size: 14px; font-weight: 600; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.04);">$${item.price.toFixed(2)}</td>
+          <td style="padding: 12px 0; color: #ffffff; font-size: 14px; font-weight: 600; text-align: right; border-bottom: 1px solid rgba(255,255,255,0.04);">${currencyFormatter.format(item.price)}</td>
         </tr>`,
     )
     .join('');
@@ -184,7 +186,7 @@ export const generateOrderStatusTemplate = ({
                                         <span style="font-size: 14px; font-weight: 600; color: #8899B4;">Total</span>
                                       </td>
                                       <td style="padding: 16px 0 0; text-align: right; border-top: 2px solid rgba(232,85,45,0.2);">
-                                        <span style="font-size: 20px; font-weight: 700; color: #E8552D;">$${total.toFixed(2)}</span>
+                                        <span style="font-size: 20px; font-weight: 700; color: #E8552D;">${currencyFormatter.format(total)}</span>
                                       </td>
                                     </tr>
                                   </table>

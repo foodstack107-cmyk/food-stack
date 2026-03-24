@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { BookOpen, ChefHat, Clock, Flame, Star, ThumbsUp } from 'lucide-react';
+import { BookOpen, ChefHat, Clock, Flame, Star } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { useGetAllBlogs } from '@/hooks/blog/query';
 
@@ -176,33 +175,6 @@ const FoodTips = () => {
                 <p className='text-white/60 text-base mb-8 leading-relaxed line-clamp-3 flex-1'>
                   {tip.description}
                 </p>
-
-                <div className='mt-auto flex items-center justify-between pt-6 border-t border-white/10'>
-                  <Link
-                    href={`/blog/food-tips/${tip._id}`}
-                    className='inline-flex items-center text-white font-bold text-sm group/btn'
-                  >
-                    Read Guide
-                    <span className='w-8 h-8 ml-3 rounded-full bg-white/5 flex items-center justify-center group-hover/btn:bg-[#E8552D] transition-colors'>
-                      <svg
-                        className='w-4 h-4 transition-transform group-hover/btn:translate-x-0.5'
-                        fill='none'
-                        stroke='currentColor'
-                        strokeWidth='2'
-                        strokeLinecap='round'
-                        strokeLinejoin='round'
-                        viewBox='0 0 24 24'
-                      >
-                        <path d='M5 12h14M12 5l7 7-7 7' />
-                      </svg>
-                    </span>
-                  </Link>
-
-                  <div className='flex items-center gap-2 text-white/40 text-sm'>
-                    <ThumbsUp className='w-4 h-4' />
-                    <span>{tip.rating || 4.8}</span>
-                  </div>
-                </div>
               </div>
             </motion.article>
           ))}

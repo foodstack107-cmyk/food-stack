@@ -602,44 +602,6 @@ export function Products() {
                   </div>
                 )}
               </div>
-
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  DoorDash Link
-                </label>
-                <input
-                  type='url'
-                  name='doordashLink'
-                  value={formData.doordashLink}
-                  onChange={handleChange}
-                  className='w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white'
-                  placeholder='https://doordash.com/...'
-                />
-                {errors.doordashLink && (
-                  <p className='mt-1 text-sm text-red-600'>
-                    {errors.doordashLink}
-                  </p>
-                )}
-              </div>
-
-              <div>
-                <label className='block text-sm font-medium text-gray-700 mb-1'>
-                  Uber Eats Link
-                </label>
-                <input
-                  type='url'
-                  name='uberEatsLink'
-                  value={formData.uberEatsLink}
-                  onChange={handleChange}
-                  className='w-full border border-gray-300 px-3 py-2 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white'
-                  placeholder='https://ubereats.com/...'
-                />
-                {errors.uberEatsLink && (
-                  <p className='mt-1 text-sm text-red-600'>
-                    {errors.uberEatsLink}
-                  </p>
-                )}
-              </div>
             </div>
 
             <button

@@ -1,4 +1,50 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npx lint-staged
+# Function to find and execute lint-staged
+run_lint_staged() {
+  # Try npx first
+  if command -v npx >/dev/null 2>&1; then
+    npx lint-staged
+    return $?
+  fi
+  
+  # Try npm run
+  if command -v npm >/dev/null 2>&1; then
+    npm run lint-staged
+    return $?
+  fi
+  
+  # Try yarn if available
+  if command -v yarn >/dev/null 2>&1; then
+    yarn lint-staged
+    return $?
+  fi
+  
+  # Try pnpm if available
+  if command -v pnpm >/dev/null 2>&1; then
+    pnpm lint-staged
+    return $?
+  fi
+  
+  # If nothing works, try to run lint-staged directly
+  if command -v lint-staged >/dev/null 2>&1; then
+    lint-staged
+    return $?
+  fi
+  
+  echo "Warning: Could not find npx, npm, yarn, pnpm, or lint-staged. Skipping pre-commit hooks."
+  return 0
+}
+
+# Add common paths where Node.js might be installed
+export PATH="/usr/local/bin:/opt/homebrew/bin:/usr/bin:/bin:$PATH"
+
+# Try to source nvm if available
+[ -s "$HOME/.nvm/nvm.sh" ] && . "$HOME/.nvm/nvm.sh"
+
+# Try to source volta if available
+[ -s "$HOME/.volta/load.sh" ] && . "$HOME/.volta/load.sh"
+
+# Run lint-staged
+run_lint_staged

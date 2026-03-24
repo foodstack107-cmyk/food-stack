@@ -1,4 +1,4 @@
-import { Calendar, DollarSign, Mail, Package, User } from 'lucide-react';
+import { Calendar, Mail, Package, User } from 'lucide-react';
 import React from 'react';
 
 import { UIOrder } from '@/app/admin/components/Orders/OrderMain';
@@ -24,9 +24,9 @@ const OrderCard: React.FC<OrderCardProps> = ({
   };
 
   const formatAmount = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
-      currency: 'USD',
+      currency: 'INR',
     }).format(amount);
   };
 
@@ -48,7 +48,6 @@ const OrderCard: React.FC<OrderCardProps> = ({
           {order.orderNumber}
         </span>
         <div className='flex items-center text-green-600 font-semibold'>
-          <DollarSign className='w-4 h-4 mr-1' />
           {formatAmount(order.amount)}
         </div>
       </div>

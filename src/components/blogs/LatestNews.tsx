@@ -1,9 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { ArrowRight,BellRing, Clock, Newspaper } from 'lucide-react';
+import { BellRing, Clock, Newspaper } from 'lucide-react';
 import Image from 'next/image';
-import Link from 'next/link';
 
 import { useGetAllBlogs } from '@/hooks/blog/query';
 
@@ -159,18 +158,6 @@ const LatestNews = () => {
                 <p className='text-white/60 text-base mb-8 leading-relaxed line-clamp-3 flex-1'>
                   {tip.description}
                 </p>
-
-                <div className='mt-auto flex items-center justify-between pt-6 border-t border-white/10'>
-                  <Link
-                    href={`/latest-news/${tip._id}`}
-                    className='inline-flex items-center text-white font-bold text-sm group/btn'
-                  >
-                    Read Full News
-                    <span className='w-8 h-8 ml-3 rounded-full bg-white/5 flex items-center justify-center group-hover/btn:bg-[#E8552D] transition-colors'>
-                      <ArrowRight className='w-4 h-4 transition-transform group-hover/btn:translate-x-0.5' />
-                    </span>
-                  </Link>
-                </div>
               </div>
             </motion.article>
           ))}

@@ -1,4 +1,3 @@
-
 export const dbConnection = {
   // Add the protocol prefix here
   url: `mongodb://${process.env.DB_HOST}`,

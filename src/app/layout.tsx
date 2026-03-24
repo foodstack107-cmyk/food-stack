@@ -4,10 +4,10 @@ import * as React from 'react';
 import '@/styles/globals.css';
 import '@/styles/colors.css';
 
+import ClientLayout from '@/lib/providers/ClientLayout';
 //  import the client layout
 import { ReactQueryProvider } from '@/lib/providers/ReactQueryProvider';
 import { ToastProvider } from '@/lib/providers/toastify';
-import ClientLayout from '@/lib/providers/ClientLayout';
 
 import { siteConfig } from '@/constant/config';
 
