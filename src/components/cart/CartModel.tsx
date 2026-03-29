@@ -3,9 +3,7 @@ import { useAtom } from 'jotai';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 
-import { generateOtp, verifyOtp } from '@/lib/utils';
 import { useCreateOrder, useUpdateOrderStatus } from '@/hooks/orders/mutate';
-import { errorToast, success, warning } from '@/hooks/use-toast';
 
 import {
   addToCart,
@@ -54,9 +52,6 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   const [showRecentOrders, setShowRecentOrders] = useState(true);
   const createOrder = useCreateOrder();
   const updateOrderStatus = useUpdateOrderStatus();
-  const [otp, setOtp] = useState<string>('');
-  const [generatedOtp, setGeneratedOtp] = useState<string>('');
-  const [isEmailVerified, setIsEmailVerified] = useState<boolean>(false);
   const [email, setEmail] = useState<string>('');
   const { data: session } = useSession();
   const isLoggedIn = !!session?.user;
@@ -117,46 +112,6 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
     }
   }, [isLoggedIn, session?.user]);
 
-  const handleSendOtp = async (): Promise<void> => {
-    const otp = generateOtp();
-    setGeneratedOtp(otp);
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          recipients: [email],
-          subject: 'Your OTP for Email Verification',
-          template: `Your OTP is: ${otp}. Please enter it in the verification form.`,
-          ccRecipients: [],
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to send OTP');
-      }
-
-      setIsEmailVerified(false);
-      success(`OTP sent to ${email}. Please check your inbox.`);
-    } catch (error) {
-      console.error('Error sending OTP:', error);
-      errorToast('There was an error sending the OTP. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleVerifyOtp = (): void => {
-    if (verifyOtp(otp, generatedOtp)) {
-      setIsEmailVerified(true);
-      success('Email verified successfully!');
-    } else {
-      warning('Invalid OTP. Please try again.');
-    }
-  };
-
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -211,8 +166,12 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
     setCart(clearCart());
   };
 
-  const handleProceedToCheckout = () => {
-    setViewState('checkout');
+  const handleProceedToCheckout = async () => {
+    if (isLoggedIn) {
+      await handleSubmitOrder();
+    } else {
+      setViewState('checkout');
+    }
   };
 
   const handleBackToCart = () => {
@@ -239,13 +198,8 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
     setShowRecentOrders(!showRecentOrders);
   };
 
-  const handleSubmitOrder = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!isEmailVerified) {
-      alert('Please verify your email before placing the order.');
-      return;
-    }
-
+  const handleSubmitOrder = async (e?: React.FormEvent) => {
+    e?.preventDefault();
     setIsSubmitting(true);
 
     const orderId = `ORD-${crypto.randomUUID().slice(0, 8)}`;
@@ -490,16 +444,10 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
                   setPhone={setPhone}
                   email={email}
                   setEmail={setEmail}
-                  otp={otp}
-                  setOtp={setOtp}
-                  generatedOtp={generatedOtp}
-                  isEmailVerified={isEmailVerified}
                   pickupTime={pickupTime}
                   setPickupTime={setPickupTime}
                   availableTimes={availableTimes}
                   isSubmitting={isSubmitting}
-                  handleSendOtp={handleSendOtp}
-                  handleVerifyOtp={handleVerifyOtp}
                   handleSubmitOrder={handleSubmitOrder}
                   isLoggedIn={isLoggedIn}
                 />
@@ -533,6 +481,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
               cart={cart}
               total={total}
               isSubmitting={isSubmitting}
+              isLoggedIn={isLoggedIn}
               handleBackToCart={handleBackToCart}
               handleProceedToCheckout={handleProceedToCheckout}
               setViewState={setViewState}

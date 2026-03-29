@@ -8,6 +8,7 @@ interface CartModalFooterProps {
   cart: CartItem[];
   total: number;
   isSubmitting: boolean;
+  isLoggedIn: boolean;
   handleBackToCart: () => void;
   handleProceedToCheckout: () => void;
   setViewState: (
@@ -22,6 +23,7 @@ const CartModalFooter: React.FC<CartModalFooterProps> = ({
   cart,
   total,
   isSubmitting,
+  isLoggedIn,
   handleBackToCart,
   handleProceedToCheckout,
   setViewState,
@@ -79,9 +81,14 @@ const CartModalFooter: React.FC<CartModalFooterProps> = ({
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           onClick={handleProceedToCheckout}
+          disabled={isSubmitting}
           className='w-full py-2 sm:py-3 text-sm sm:text-base bg-[#E8552D] text-[#0B1426] rounded-lg font-bold text-center'
         >
-          Proceed to Checkout
+          {isLoggedIn
+            ? isSubmitting
+              ? 'Placing Order...'
+              : 'Place Order'
+            : 'Proceed to Checkout'}
         </motion.button>
       </div>
     );

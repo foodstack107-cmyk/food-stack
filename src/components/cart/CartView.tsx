@@ -7,7 +7,6 @@ import {
   Plus,
   ShoppingCart,
 } from 'lucide-react';
-import Image from 'next/image';
 
 import { currencyFormatter } from '@/lib/utils';
 
@@ -83,11 +82,10 @@ const CartView: React.FC<CartViewProps> = ({
               className='flex items-center justify-between bg-white/5 rounded-lg p-3 sm:p-4'
             >
               <div className='w-20 h-20 rounded-lg overflow-hidden mr-3 sm:mr-4 flex-shrink-0'>
-                <Image
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
                   src={item.image}
                   alt={item.name}
-                  width={80}
-                  height={80}
                   className='w-full h-full object-cover'
                 />
               </div>

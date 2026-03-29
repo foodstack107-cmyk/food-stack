@@ -2,13 +2,17 @@
 
 import { AnimatePresence, motion } from 'framer-motion';
 import { useAtom } from 'jotai';
-import { ArrowLeft, Minus, Plus, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Minus, Plus, ShoppingCart, Zap } from 'lucide-react';
 import Link from 'next/link';
 import { useParams } from 'next/navigation';
+import { useState } from 'react';
 
 import { currencyFormatter } from '@/lib/utils';
 
 import { menuItems } from '@/data/menu';
+
+import CartButton from '@/components/cart/CartButton';
+import CartModal from '@/components/cart/CartModel';
 
 import { addToCart, cartAtomWithStorage, removeFromCart } from '@/store/atom';
 
@@ -23,7 +27,13 @@ const categoryMap: Record<string, string> = {
   falooda: 'Falooda',
 };
 
-function DishCard({ item }: { item: (typeof menuItems)[0] }) {
+function DishCard({
+  item,
+  onBuyNow,
+}: {
+  item: (typeof menuItems)[0];
+  onBuyNow: (item: (typeof menuItems)[0]) => void;
+}) {
   const [cart, setCart] = useAtom(cartAtomWithStorage);
   const itemId = String(item.id);
   const isInCart = cart.some((c) => c.id === itemId);
@@ -52,7 +62,7 @@ function DishCard({ item }: { item: (typeof menuItems)[0] }) {
             </span>
           </div>
           <div className='absolute top-4 right-4'>
-            <span className='px-3 py-1 rounded-full text-sm font-bold bg-[#E8552D] text-black/80 shadow-lg'>
+            <span className='px-3 py-1 rounded-full text-sm font-bold bg-[#E8552D] text-white shadow-lg'>
               {currencyFormatter.format(item.price)}
             </span>
           </div>
@@ -78,7 +88,8 @@ function DishCard({ item }: { item: (typeof menuItems)[0] }) {
             </div>
           )}
 
-          <div>
+          <div className='flex flex-col gap-2'>
+            {/* Add to Cart */}
             {isInCart ? (
               <div className='flex items-center justify-between w-full bg-white/15 rounded-full p-1.5'>
                 <motion.button
@@ -110,12 +121,23 @@ function DishCard({ item }: { item: (typeof menuItems)[0] }) {
                 onClick={() =>
                   setCart(addToCart(cart, { ...item, id: itemId } as CartItem))
                 }
-                className='w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8552D] to-[#F97316] text-black font-medium shadow-lg shadow-[#E8552D]/20 hover:shadow-[#E8552D]/30 transition-all'
+                className='w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-white/10 border border-white/20 text-white font-medium hover:bg-white/20 transition-all'
               >
                 <ShoppingCart size={18} />
                 Add to Cart
               </motion.button>
             )}
+
+            {/* Buy Now */}
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => onBuyNow(item)}
+              className='w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#E8552D] to-[#F97316] text-white font-medium shadow-lg shadow-[#E8552D]/20 hover:shadow-[#E8552D]/40 transition-all'
+            >
+              <Zap size={18} />
+              Buy Now
+            </motion.button>
           </div>
         </div>
       </div>
@@ -128,6 +150,15 @@ export default function CategoryMenuPage() {
   const categorySlug = (slug as string) || '';
   const categoryName = categoryMap[categorySlug] || categorySlug;
   const items = menuItems.filter((item) => item.category === categoryName);
+
+  const [cart, setCart] = useAtom(cartAtomWithStorage);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
+  const handleBuyNow = (item: (typeof menuItems)[0]) => {
+    const itemId = String(item.id);
+    setCart(addToCart(cart, { ...item, id: itemId } as CartItem));
+    setIsCartOpen(true);
+  };
 
   return (
     <div className='min-h-screen bg-gradient-to-br from-[#0B1426] via-[#1A2744] to-[#2D4A7A]'>
@@ -161,7 +192,7 @@ export default function CategoryMenuPage() {
             className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8'
           >
             {items.map((item) => (
-              <DishCard key={item.id} item={item} />
+              <DishCard key={item.id} item={item} onBuyNow={handleBuyNow} />
             ))}
           </motion.div>
         </AnimatePresence>
@@ -172,6 +203,10 @@ export default function CategoryMenuPage() {
           </div>
         )}
       </div>
+
+      {/* Cart Button + Modal */}
+      <CartButton onClick={() => setIsCartOpen(true)} />
+      <CartModal isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
     </div>
   );
 }
