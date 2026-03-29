@@ -1,24 +1,32 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Cake, ChevronRight, Coffee, IceCream, Sandwich } from 'lucide-react';
+import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
+import { StaticImageData } from 'next/image';
 import Link from 'next/link';
 import React from 'react';
-import { RiDrinks2Fill } from 'react-icons/ri';
-import { SiBuymeacoffee } from 'react-icons/si';
+
+import appetizersImg from '@/assets/images/categories/apptizers.png';
+import dessertsImg from '@/assets/images/categories/desserts.png';
+import drinksImg from '@/assets/images/categories/drinks.png';
+import faloodaImg from '@/assets/images/categories/falooda2.png';
+import lassiImg from '@/assets/images/categories/lassi.png';
+import mainImg from '@/assets/images/categories/main.jpg';
 
 interface FoodCategory {
   name: string;
-  icon: React.ReactNode;
+  slug: string;
+  image: StaticImageData;
 }
 
 const categories: FoodCategory[] = [
-  { name: 'Beverages', icon: <Coffee size={36} /> },
-  { name: 'Desserts', icon: <Cake size={36} /> },
-  { name: 'Snow Cone', icon: <Sandwich size={36} /> },
-  { name: 'Ice Cream', icon: <IceCream size={36} /> },
-  { name: 'Falooda', icon: <SiBuymeacoffee size={36} /> },
-  { name: 'Lassi', icon: <RiDrinks2Fill size={36} /> },
+  { name: 'Appetizers', slug: 'appetizers', image: appetizersImg },
+  { name: 'Main', slug: 'main', image: mainImg },
+  { name: 'Desserts', slug: 'desserts', image: dessertsImg },
+  { name: 'Drinks', slug: 'drinks', image: drinksImg },
+  { name: 'Falooda', slug: 'falooda', image: faloodaImg },
+  { name: 'Lassi', slug: 'lassi', image: lassiImg },
 ];
 
 const containerVariants = {
@@ -95,31 +103,38 @@ export default function FoodCategories() {
                 : 'translate-y-4 lg:translate-y-8';
 
             return (
-              <motion.div
-                variants={itemVariants}
-                key={index}
-                whileHover={{ scale: 1.05, y: -10 }}
-                className={`group relative flex flex-col items-center gap-6 cursor-pointer ${yOffset}`}
-              >
-                {/* Glowing Circular Bubble */}
-                <div className='relative w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex items-center justify-center transition-all duration-500 overflow-hidden group-hover:border-[#E8552D]/50 group-hover:bg-[#1A2744]/80'>
-                  {/* Inside glow effect */}
-                  <div className='absolute inset-0 bg-gradient-to-br from-[#E8552D]/0 to-[#F97316]/0 group-hover:from-[#E8552D]/20 group-hover:to-[#F97316]/10 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-full' />
+              <Link href={`/categories/${category.slug}`} key={index}>
+                <motion.div
+                  variants={itemVariants}
+                  whileHover={{ scale: 1.05, y: -10 }}
+                  className={`group relative flex flex-col items-center gap-6 cursor-pointer ${yOffset}`}
+                >
+                  {/* Glowing Circular Bubble */}
+                  <div className='relative w-32 h-32 sm:w-40 sm:h-40 lg:w-44 lg:h-44 rounded-full bg-white/5 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.5)] flex items-center justify-center transition-all duration-500 overflow-hidden group-hover:border-[#E8552D]/50 group-hover:bg-[#1A2744]/80'>
+                    {/* Inside glow effect */}
+                    <div className='absolute inset-0 bg-gradient-to-br from-[#E8552D]/0 to-[#F97316]/0 group-hover:from-[#E8552D]/20 group-hover:to-[#F97316]/10 opacity-0 group-hover:opacity-100 transition-all duration-500 rounded-full' />
 
-                  {/* Icon */}
-                  <div className='relative z-10 text-white/70 group-hover:text-white group-hover:scale-110 transition-all duration-500 drop-shadow-[0_0_10px_rgba(255,255,255,0.2)] group-hover:drop-shadow-[0_0_15px_rgba(255,255,255,0.8)]'>
-                    {category.icon}
+                    {/* Image */}
+                    <div className='relative z-10 w-full h-full overflow-hidden rounded-full'>
+                      <Image
+                        src={category.image}
+                        alt={category.name}
+                        fill
+                        className='object-cover group-hover:scale-110 transition-transform duration-500 rounded-full'
+                      />
+                      <div className='absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-all duration-500 rounded-full' />
+                    </div>
+
+                    {/* Outer glowing ring on hover */}
+                    <div className='absolute inset-[-2px] rounded-full bg-gradient-to-r from-[#E8552D] to-[#F97316] opacity-0 group-hover:opacity-20 blur-md transition-opacity duration-500' />
                   </div>
 
-                  {/* Outer glowing ring on hover */}
-                  <div className='absolute inset-[-2px] rounded-full bg-gradient-to-r from-[#E8552D] to-[#F97316] opacity-0 group-hover:opacity-20 blur-md transition-opacity duration-500' />
-                </div>
-
-                {/* Text Label Below Bubble */}
-                <h3 className='text-lg sm:text-xl font-bold text-white/80 group-hover:text-white transition-colors duration-300 drop-shadow-lg text-center'>
-                  {category.name}
-                </h3>
-              </motion.div>
+                  {/* Text Label Below Bubble */}
+                  <h3 className='text-lg sm:text-xl font-bold text-white/80 group-hover:text-white transition-colors duration-300 drop-shadow-lg text-center'>
+                    {category.name}
+                  </h3>
+                </motion.div>
+              </Link>
             );
           })}
         </motion.div>

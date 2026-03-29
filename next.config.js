@@ -11,6 +11,15 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
 
+  async rewrites() {
+    return [
+      {
+        source: '/categories/:slug',
+        destination: '/categories/:slug',
+      },
+    ];
+  },
+
   experimental: {
     optimizePackageImports: [
       'react-icons',
@@ -26,26 +35,30 @@ const nextConfig = {
   // Uncoment to add domain whitelist
   images: {
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: 'res.cloudinary.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'templatekit.jegtheme.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'southindianfoods.in',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.public.blob.vercel-storage.com',
-      },
+      { protocol: 'https', hostname: 'res.cloudinary.com' },
+      { protocol: 'https', hostname: 'templatekit.jegtheme.com' },
+      { protocol: 'https', hostname: 'images.unsplash.com' },
+      { protocol: 'https', hostname: 'southindianfoods.in' },
+      { protocol: 'https', hostname: '*.public.blob.vercel-storage.com' },
+      { protocol: 'https', hostname: 'themom100.com' },
+      { protocol: 'https', hostname: 'cookingwithwineblog.com' },
+      { protocol: 'https', hostname: 'content.jdmagicbox.com' },
+      { protocol: 'https', hostname: 'tastedrecipes.com' },
+      { protocol: 'https', hostname: 'i.ytimg.com' },
+      { protocol: 'https', hostname: 'encrypted-tbn0.gstatic.com' },
+      { protocol: 'https', hostname: 'www.thespruceeats.com' },
+      { protocol: 'https', hostname: 'images.immediate.co.uk' },
+      { protocol: 'https', hostname: 'www.vibrantplate.com' },
+      { protocol: 'https', hostname: 'thumbs.dreamstime.com' },
+      { protocol: 'https', hostname: 'blogger.googleusercontent.com' },
+      { protocol: 'https', hostname: 'www.chefkunalkapur.com' },
+      { protocol: 'https', hostname: 'rukminim2.flixcart.com' },
+      { protocol: 'https', hostname: 'thepepper.in' },
+      { protocol: 'https', hostname: 'd36v5spmfzyapc.cloudfront.net' },
+      { protocol: 'https', hostname: 'www.archanaskitchen.com' },
+      { protocol: 'https', hostname: 'www.yummyfoodrecipes.com' },
+      { protocol: 'https', hostname: 'img-global.cpcdn.com' },
+      { protocol: 'https', hostname: 'www.vidhyashomecooking.com' },
     ],
   },
 

@@ -1,6 +1,6 @@
 // pages/[resource]/[id].tsx
 'use client';
-import { useParams } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 
 import BlogDetail from '@/components/blogs/BlogDetail';
 
@@ -9,6 +9,10 @@ export default function DetailPage() {
   const resource = Array.isArray(params?.resource)
     ? params.resource[0]
     : params?.resource;
+
+  if (resource === 'categories') {
+    notFound();
+  }
 
   if (resource === 'food-tips') {
     return <BlogDetail resourceType='food-tips' />;

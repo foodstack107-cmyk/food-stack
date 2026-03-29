@@ -21,7 +21,7 @@ import { useEffect, useRef, useState } from 'react';
 const menuItems = [
   { title: 'Home', link: '/' },
   { title: 'About', link: '/about' },
-  { title: 'Menu', link: '/menu' },
+  { title: 'Categories', link: '/categories' },
   { title: 'Blog', link: '/blog/food-tips', icon: BookOpen },
   { title: 'News', link: '/blog/latest-news', icon: Newspaper },
   { title: 'Schedule', link: '/schedule', icon: Calendar },

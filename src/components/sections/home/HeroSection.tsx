@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { Clock, Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 const Hero = () => {
   return (
@@ -61,6 +62,34 @@ const Hero = () => {
               Authentic Indian & Nepali cuisine delivered hot and fresh to your
               door in under 30 minutes. The taste of home, just a tap away.
             </motion.p>
+
+            {/* Order Now Button */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.5 }}
+              className='flex items-center gap-6 justify-center lg:justify-start flex-wrap'
+            >
+              <Link href='/categories'>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className='bg-gradient-to-r from-[#E8552D] to-[#F97316] text-white px-10 py-4 rounded-full font-bold text-lg shadow-[0_0_30px_rgba(232,85,45,0.4)] transition-all'
+                >
+                  Order Now
+                </motion.button>
+              </Link>
+              <div className='flex items-center gap-4 text-white/50 text-sm'>
+                <div className='flex items-center gap-2'>
+                  <Clock className='w-4 h-4 text-[#E8552D]' />
+                  <span>20-30 min</span>
+                </div>
+                <div className='flex items-center gap-2'>
+                  <Star className='w-4 h-4 text-yellow-400 fill-yellow-400' />
+                  <span>4.9/5</span>
+                </div>
+              </div>
+            </motion.div>
 
             {/* Search/CTA Bar */}
             {/* <motion.div
