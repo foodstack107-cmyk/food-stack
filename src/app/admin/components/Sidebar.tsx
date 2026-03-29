@@ -1,7 +1,6 @@
 'use client';
 import dayjs from 'dayjs';
 import {
-  CalendarClock,
   Coffee,
   FileText,
   HelpCircle,
@@ -28,12 +27,6 @@ export const navItems: NavItem[] = [
   { icon: Users, label: 'Team', id: 'team', path: '/admin/team' },
   { icon: Coffee, label: 'Products', id: 'products', path: '/admin/products' },
   { icon: HelpCircle, label: 'FAQ', id: 'faq', path: '/admin/faq' },
-  {
-    icon: CalendarClock,
-    label: 'Schedule',
-    id: 'schedule',
-    path: '/admin/schedule',
-  },
   {
     icon: Mail,
     label: 'Enquiries',

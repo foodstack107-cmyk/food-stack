@@ -1,9 +1,7 @@
-import { Schedule } from '@/app/admin/components/Schedule/Schedule';
-
 export default function schedulePage() {
   return (
-    <>
-      <Schedule />
-    </>
+    <div className='p-8 text-gray-500'>
+      Schedule management has been disabled. Schedule is now static.
+    </div>
   );
 }
