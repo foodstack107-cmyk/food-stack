@@ -5,6 +5,7 @@ import {
   UserPlus,
 } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import {
   useCreateUser,
@@ -61,6 +62,9 @@ export function Team() {
             resetForm();
             refetch();
           },
+          onError: (error: Error) => {
+            toast.error(`Failed to update member: ${error.message}`);
+          },
         },
       );
     } else {
@@ -69,6 +73,9 @@ export function Team() {
           setIsModalOpen(false);
           resetForm();
           refetch();
+        },
+        onError: (error: Error) => {
+          toast.error(`Failed to add member: ${error.message}`);
         },
       });
     }
@@ -89,6 +96,9 @@ export function Team() {
       deleteTeam(id, {
         onSuccess: () => {
           refetch();
+        },
+        onError: (error: Error) => {
+          toast.error(`Failed to delete member: ${error.message}`);
         },
       });
     }

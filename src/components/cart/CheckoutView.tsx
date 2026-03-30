@@ -1,3 +1,6 @@
+import React, { useState } from 'react';
+import { toast } from 'sonner';
+
 interface CheckoutViewProps {
   name: string;
   setName: (name: string) => void;
@@ -13,6 +16,7 @@ interface CheckoutViewProps {
   isLoggedIn: boolean;
 }
 
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const CheckoutView: React.FC<CheckoutViewProps> = ({
   name,
   setName,
@@ -27,8 +31,38 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
   handleSubmitOrder,
   isLoggedIn,
 }) => {
+  const [errors, setErrors] = useState<{ email?: string; phone?: string }>({});
+
+  const validate = () => {
+    const newErrors: { email?: string; phone?: string } = {};
+    if (!isLoggedIn && !emailRegex.test(email)) {
+      newErrors.email = 'Please enter a valid email address.';
+      toast.error('Invalid Email', {
+        description: 'Please enter a valid email address.',
+      });
+    }
+    if (phone.length !== 10) {
+      newErrors.phone = 'Phone number must be exactly 10 digits.';
+      toast.error('Invalid Phone Number', {
+        description: 'Phone number must be exactly 10 digits.',
+      });
+    } else if (!/^[6-9]/.test(phone)) {
+      newErrors.phone = 'Phone number must start with 6, 7, 8, or 9.';
+      toast.error('Invalid Phone Number', {
+        description: 'Indian phone numbers start with 6, 7, 8, or 9.',
+      });
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (validate()) handleSubmitOrder(e);
+  };
+
   return (
-    <form id='checkout-form' onSubmit={handleSubmitOrder} className='space-y-4'>
+    <form id='checkout-form' onSubmit={handleSubmit} className='space-y-4'>
       <h3 className='text-lg sm:text-xl font-semibold mb-4 text-[#E8552D]'>
         Pickup Details
       </h3>
@@ -54,9 +88,15 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
               type='email'
               required
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className='w-full px-4 py-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors'
+              onChange={(e) => {
+                setEmail(e.target.value);
+                setErrors((prev) => ({ ...prev, email: undefined }));
+              }}
+              className={`w-full px-4 py-2 rounded-lg bg-white/10 text-white border transition-colors focus:outline-none ${errors.email ? 'border-red-500' : 'border-white/20 focus:border-[#E8552D]'}`}
             />
+            {errors.email && (
+              <p className='text-red-400 text-xs mt-1'>{errors.email}</p>
+            )}
           </div>
         </>
       )}
@@ -68,9 +108,16 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
           type='tel'
           required
           value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className='w-full px-4 py-2 rounded-lg bg-white/10 text-white border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors'
+          maxLength={10}
+          onChange={(e) => {
+            setPhone(e.target.value);
+            setErrors((prev) => ({ ...prev, phone: undefined }));
+          }}
+          className={`w-full px-4 py-2 rounded-lg bg-white/10 text-white border transition-colors focus:outline-none ${errors.phone ? 'border-red-500' : 'border-white/20 focus:border-[#E8552D]'}`}
         />
+        {errors.phone && (
+          <p className='text-red-400 text-xs mt-1'>{errors.phone}</p>
+        )}
       </div>
       <div>
         <label className='block text-sm font-medium mb-1 text-white'>

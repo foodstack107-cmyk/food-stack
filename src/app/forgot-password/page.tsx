@@ -3,16 +3,16 @@
 import { ArrowLeft, Mail, Utensils } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [forgotError, setForgotError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     setIsLoading(true);
     try {
       const res = await fetch('/api/auth/forgot-password', {
@@ -22,14 +22,18 @@ export default function ForgotPasswordPage() {
       });
       if (!res.ok) {
         const data = await res.json();
-        setError(
-          data.message || 'Failed to send reset email. Please try again.',
-        );
+        const msg =
+          data.message || 'Failed to send reset email. Please try again.';
+        setForgotError(msg);
+        toast.error(msg);
       } else {
+        setForgotError('');
         setSubmitted(true);
       }
     } catch {
-      setError('Something went wrong. Please try again later.');
+      const msg = 'Something went wrong. Please try again later.';
+      setForgotError(msg);
+      toast.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -115,13 +119,12 @@ export default function ForgotPasswordPage() {
                   </p>
                 </div>
 
-                {error && (
-                  <div className='mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm'>
-                    {error}
-                  </div>
-                )}
-
                 <form onSubmit={handleSubmit} className='space-y-6'>
+                  {forgotError && (
+                    <div className='p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm text-center'>
+                      {forgotError}
+                    </div>
+                  )}
                   <div className='relative'>
                     <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
                       <Mail className='h-5 w-5 text-gray-400' />

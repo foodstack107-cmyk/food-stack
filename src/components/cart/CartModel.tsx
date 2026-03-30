@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { useAtom } from 'jotai';
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 import { useCreateOrder, useUpdateOrderStatus } from '@/hooks/orders/mutate';
 
@@ -255,7 +256,7 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
       setViewState('success');
     } catch (error) {
       console.error('Order processing error:', error);
-      alert('Failed to process order. Please try again.');
+      toast.error('Failed to process order. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -341,10 +342,12 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
       setPickupTime('');
       setCancellationReason('');
 
-      alert('Your order has been successfully cancelled.');
+      toast.success('Your order has been successfully cancelled.');
     } catch (error) {
       console.error('Error cancelling order:', error);
-      alert('There was an error cancelling your order. Please try again.');
+      toast.error(
+        'There was an error cancelling your order. Please try again.',
+      );
     } finally {
       setIsSubmitting(false);
     }

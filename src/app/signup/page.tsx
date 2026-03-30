@@ -3,6 +3,7 @@
 import { Eye, EyeOff, Lock, Mail, User, Utensils } from 'lucide-react';
 import Link from 'next/link';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 export default function SignupPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,17 +15,16 @@ export default function SignupPage() {
     password: '',
     confirm: '',
   });
-  const [error, setError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [signupError, setSignupError] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) =>
     setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
     if (form.password !== form.confirm) {
-      setError('Passwords do not match.');
+      toast.error('Passwords do not match.');
       return;
     }
     setIsLoading(true);
@@ -40,12 +40,17 @@ export default function SignupPage() {
       });
       if (!res.ok) {
         const data = await res.json();
-        setError(data.message || 'Registration failed. Please try again.');
+        const msg = data.message || 'Registration failed. Please try again.';
+        setSignupError(msg);
+        toast.error(msg);
       } else {
+        setSignupError('');
         setSuccess(true);
       }
     } catch {
-      setError('Something went wrong. Please try again later.');
+      const msg = 'Something went wrong. Please try again later.';
+      setSignupError(msg);
+      toast.error(msg);
     } finally {
       setIsLoading(false);
     }
@@ -134,13 +139,12 @@ export default function SignupPage() {
                   <p className='text-gray-400'>Sign up to get started</p>
                 </div>
 
-                {error && (
-                  <div className='mb-4 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm'>
-                    {error}
-                  </div>
-                )}
-
                 <form onSubmit={handleSubmit} className='space-y-4'>
+                  {signupError && (
+                    <div className='p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm text-center'>
+                      {signupError}
+                    </div>
+                  )}
                   <div className='relative'>
                     <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
                       <User className='h-5 w-5 text-gray-400' />

@@ -7,6 +7,7 @@ import {
   Trash2,
 } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
 import { useCreateFaq, useDeleteFaq } from '@/hooks/faq/mutation';
 import { useUpdateFaq } from '@/hooks/faq/mutation';
@@ -52,7 +53,7 @@ export function FAQ() {
             setEditingFaq(null);
           },
           onError: (error) => {
-            console.error('Update failed:', error);
+            toast.error(`Failed to update FAQ: ${error.message}`);
           },
         },
       );
@@ -63,7 +64,7 @@ export function FAQ() {
           refetchFaqs();
         },
         onError: (error) => {
-          console.error('Create failed:', error);
+          toast.error(`Failed to create FAQ: ${error.message}`);
         },
       });
     }
@@ -81,7 +82,7 @@ export function FAQ() {
           refetchFaqs();
         },
         onError: (error) => {
-          console.error('Delete failed:', error);
+          toast.error(`Failed to delete FAQ: ${error.message}`);
         },
       });
     }

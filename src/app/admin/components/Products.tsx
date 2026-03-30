@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { toast } from 'sonner';
 import * as Yup from 'yup';
 
 import { useGetAllCategories } from '@/hooks/categories/query';
@@ -401,6 +402,11 @@ export function Products() {
                               ) {
                                 deleteProduct(product._id, {
                                   onSuccess: () => refetchProducts(),
+                                  onError: (error: Error) => {
+                                    toast.error(
+                                      `Failed to delete product: ${error.message}`,
+                                    );
+                                  },
                                 });
                               }
                             }}
