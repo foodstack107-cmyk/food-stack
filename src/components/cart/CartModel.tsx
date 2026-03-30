@@ -10,6 +10,7 @@ import {
   cartAtomWithStorage,
   cartTotalAtom,
   clearCart,
+  hydrateFromStorage,
   recentOrdersAtomWithStorage,
   removeFromCart,
 } from '@/store/atom';
@@ -113,8 +114,12 @@ export default function CartModal({ isOpen, onClose }: CartModalProps) {
   }, [isLoggedIn, session?.user]);
 
   useEffect(() => {
+    hydrateFromStorage(
+      (items) => setCart(items),
+      (orders) => setRecentOrders(orders),
+    );
     setIsMounted(true);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const getAvailablePickupTimes = () => {

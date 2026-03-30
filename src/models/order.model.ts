@@ -2,8 +2,8 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 const CustomerDetailsSchema = new Schema({
   name: { type: String, required: true },
-  phone: { type: String, required: true },
-  pickupTime: { type: String, required: true },
+  phone: { type: String },
+  pickupTime: { type: String },
   email: { type: String, required: true },
 });
 
@@ -34,8 +34,8 @@ const OrderSchema = new Schema(
 
 export interface CustomerDetails extends Document {
   name: string;
-  phone: string;
-  pickupTime: string;
+  phone?: string;
+  pickupTime?: string;
   email: string;
 }
 

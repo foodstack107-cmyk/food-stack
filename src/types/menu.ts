@@ -24,8 +24,8 @@ export interface CartItem extends MenuItem {
 
 export interface CustomerDetails {
   name: string;
-  phone: string;
-  pickupTime: string;
+  phone?: string;
+  pickupTime?: string;
   email: string;
 }
 

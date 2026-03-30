@@ -5,32 +5,11 @@ import { CartItem, OrderDetails } from '../types/menu';
 const CART_STORAGE_KEY = 'cart';
 const RECENT_ORDERS_STORAGE_KEY = 'recentOrders';
 
-// Initialize cart from localStorage or empty array
-const getInitialCart = (): CartItem[] => {
-  if (typeof window === 'undefined') return [];
-  try {
-    const storedCart = localStorage.getItem(CART_STORAGE_KEY);
-    return storedCart ? JSON.parse(storedCart) : [];
-  } catch (error) {
-    console.error('Error loading cart:', error);
-    return [];
-  }
-};
+// Cart atom — always starts empty for SSR safety
+export const cartAtom = atom<CartItem[]>([]);
 
-// Initialize recent orders from localStorage or empty array
-const getInitialRecentOrders = (): OrderDetails[] => {
-  if (typeof window === 'undefined') return [];
-  try {
-    const storedOrders = localStorage.getItem(RECENT_ORDERS_STORAGE_KEY);
-    return storedOrders ? JSON.parse(storedOrders) : [];
-  } catch (error) {
-    console.error('Error loading recent orders:', error);
-    return [];
-  }
-};
-
-// Cart atom with localStorage sync
-export const cartAtom = atom<CartItem[]>(getInitialCart());
+// Flag to track if atoms have been hydrated from localStorage
+export const cartHydratedAtom = atom(false);
 
 export const cartAtomWithStorage = atom(
   (get) => get(cartAtom),
@@ -44,13 +23,13 @@ export const cartAtomWithStorage = atom(
   },
 );
 
-// Recent orders atom with localStorage sync
-export const recentOrdersAtom = atom<OrderDetails[]>(getInitialRecentOrders());
+// Recent orders atom — always starts empty for SSR safety
+export const recentOrdersAtom = atom<OrderDetails[]>([]);
 
 export const recentOrdersAtomWithStorage = atom(
   (get) => get(recentOrdersAtom),
   (
-    _,
+    get,
     set,
     newOrders: OrderDetails[] | ((prev: OrderDetails[]) => OrderDetails[]),
   ) => {
@@ -70,19 +49,22 @@ export const recentOrdersAtomWithStorage = atom(
   },
 );
 
-// Get function for the recentOrdersAtomWithStorage
-interface StorageGetFunction {
-  (atom: unknown): OrderDetails[];
-}
-
-const get: StorageGetFunction = (): OrderDetails[] => {
-  if (typeof window === 'undefined') return [];
+// Hydrate atoms from localStorage (call once in a useEffect)
+export const hydrateFromStorage = (
+  setCart: (items: CartItem[]) => void,
+  setOrders: (orders: OrderDetails[]) => void,
+) => {
   try {
-    const storedValue = localStorage.getItem(RECENT_ORDERS_STORAGE_KEY);
-    return storedValue ? JSON.parse(storedValue) : [];
+    const storedCart = localStorage.getItem(CART_STORAGE_KEY);
+    if (storedCart) setCart(JSON.parse(storedCart));
   } catch (error) {
-    console.error('Error getting atom value:', error);
-    return [];
+    console.error('Error loading cart:', error);
+  }
+  try {
+    const storedOrders = localStorage.getItem(RECENT_ORDERS_STORAGE_KEY);
+    if (storedOrders) setOrders(JSON.parse(storedOrders));
+  } catch (error) {
+    console.error('Error loading recent orders:', error);
   }
 };
 
