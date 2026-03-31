@@ -31,10 +31,20 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
   handleSubmitOrder,
   isLoggedIn,
 }) => {
-  const [errors, setErrors] = useState<{ email?: string; phone?: string }>({});
+  const [errors, setErrors] = useState<{
+    email?: string;
+    phone?: string;
+    name?: string;
+  }>({});
 
   const validate = () => {
-    const newErrors: { email?: string; phone?: string } = {};
+    const newErrors: { email?: string; phone?: string; name?: string } = {};
+    if (!isLoggedIn && /\d/.test(name)) {
+      newErrors.name = 'Name should not contain numbers.';
+      toast.error('Invalid Name', {
+        description: 'Name should not contain numbers.',
+      });
+    }
     if (!isLoggedIn && !emailRegex.test(email)) {
       newErrors.email = 'Please enter a valid email address.';
       toast.error('Invalid Email', {
@@ -76,9 +86,15 @@ const CheckoutView: React.FC<CheckoutViewProps> = ({
               type='text'
               required
               value={name}
-              onChange={(e) => setName(e.target.value)}
-              className='w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 focus:outline-none focus:border-[#E8552D] transition-colors text-white'
+              onChange={(e) => {
+                setName(e.target.value);
+                setErrors((prev) => ({ ...prev, name: undefined }));
+              }}
+              className={`w-full px-4 py-2 rounded-lg bg-white/10 border transition-colors focus:outline-none text-white ${errors.name ? 'border-red-500' : 'border-white/20 focus:border-[#E8552D]'}`}
             />
+            {errors.name && (
+              <p className='text-red-400 text-xs mt-1'>{errors.name}</p>
+            )}
           </div>
           <div>
             <label className='block text-sm font-medium text-white mb-1'>
