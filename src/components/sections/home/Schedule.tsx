@@ -148,9 +148,9 @@ export default function ScheduleSection() {
                     </div>
                     <div>
                       <div className='text-white font-medium'>{zone.name}</div>
-                      <div className='text-[#E8552D] text-sm'>
+                      {/* <div className='text-[#E8552D] text-sm'>
                         {zone.postcode}
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 ))}

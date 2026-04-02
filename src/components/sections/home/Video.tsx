@@ -85,7 +85,7 @@ export default function Video() {
           className='mt-6 sm:mt-8 md:mt-12'
         >
           <Link
-            href='/menu'
+            href='/categories'
             className='bg-[#E8552D] text-black px-6 sm:px-8 py-2.5 sm:py-3 rounded-full font-medium hover:bg-[#F97316] transition-colors duration-300 text-sm sm:text-base'
           >
             Order Now

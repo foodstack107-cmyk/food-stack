@@ -9,36 +9,13 @@ import {
   Mail,
   MapPin,
   Phone,
-  Send,
   Youtube,
 } from 'lucide-react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import { FaTiktok } from 'react-icons/fa';
 
-import { useSubscriber } from '@/hooks/subscriber/mutate';
-
 const Footer = () => {
-  const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState('');
-  const [focused, setFocused] = useState(false);
-  const { mutateAsync: createSubscriber } = useSubscriber();
-
-  const handleSubscribe = async () => {
-    if (!email) return;
-    setLoading(true);
-    try {
-      await createSubscriber({ email });
-      alert('Subscribed successfully!');
-      setEmail('');
-    } catch (error) {
-      console.error('Subscription failed:', error);
-      alert('Something went wrong. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -99,7 +76,7 @@ const Footer = () => {
       </div>
 
       {/* Newsletter Banner */}
-      <motion.div
+      {/* <motion.div
         initial={{ opacity: 0, y: -16 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -180,7 +157,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </motion.div>
+      </motion.div> */}
 
       {/* Main Footer Grid */}
       <motion.div

@@ -147,7 +147,7 @@ export default function FoodCategories() {
           className='flex flex-col sm:flex-row justify-center items-center gap-6 mt-12'
         >
           <div className='h-[1px] w-24 bg-gradient-to-r from-transparent to-white/20 hidden sm:block' />
-          <Link href='/menu'>
+          <Link href='/categories'>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
